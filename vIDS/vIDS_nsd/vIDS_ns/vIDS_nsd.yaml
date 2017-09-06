@@ -1,0 +1,46 @@
+nsd:nsd-catalog:
+    nsd:
+    -   id: vIDS_nsd_v1_0
+        name: vIDS_nsd
+        short-name: vIDS_nsd
+        description: Network service descriptor to instantiate vIDS VNF
+        vendor: NCSRD
+        version: '1.0'
+
+        # Place the logo as png in icons directory and provide the name here
+        logo: osm_2x.png
+
+        # Specify the VNFDs that are part of this NSD
+        constituent-vnfd:
+            # The member-vnf-index needs to be unique, starting from 1
+            # vnfd-id-ref is the id of the VNFD
+            # Multiple constituent VNFDs can be specified
+        -   member-vnf-index: 1
+            vnfd-id-ref: vIDS_vnfd_v1_0
+
+        vld:
+        # Networks for the VNFs
+            -   id: vIDS_nsd_vld1
+                name: vIDS_nsd_vld1
+                short-name: vIDS_nsd_vld1
+                type: ELAN
+                vnfd-connection-point-ref:
+                # Specify the constituent VNFs
+                # member-vnf-index-ref - entry from constituent vnf
+                # vnfd-id-ref - VNFD id
+                # vnfd-connection-point-ref - connection point name in the VNFD
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: vIDS_vnfd_v1_0
+                    nsd:vnfd-connection-point-ref: eth0
+            -   id: vIDS_nsd_vld2
+                name: vIDS_nsd_vld2
+                short-name: vIDS_nsd_vld2
+                type: ELAN
+                vnfd-connection-point-ref:
+                # Specify the constituent VNFs
+                # member-vnf-index-ref - entry from constituent vnf
+                # vnfd-id-ref - VNFD id
+                # vnfd-connection-point-ref - connection point name in the VNFD
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: vIDS_vnfd_v1_0
+                    nsd:vnfd-connection-point-ref: eth1
