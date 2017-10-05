@@ -1,2 +1,0 @@
-80409f8be194a94529f482890722ed38  vFirewall_vnfd.yaml
-7992f31704c5f92bc9ff381e184c546d  icons/vFirewall.png
