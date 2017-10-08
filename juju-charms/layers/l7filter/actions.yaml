@@ -16,8 +16,8 @@ delete-policy:
     params:
         policy:
             description: "Policy ID."
-            type: string
-            default: ""
+            type: integer
+            default: 1
     required:
         - policy
 

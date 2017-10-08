@@ -91,7 +91,7 @@ vnfd:vnfd-catalog:
             -   name: get-policies
             -   name: delete-policy
                 parameter:
-                -   data-type: STRING
+                -   data-type: INTEGER
                     default-value: 1
                     name: policy
             -   name: delete-policies
@@ -105,7 +105,8 @@ vnfd:vnfd-catalog:
                 -   name: ssh-password
                     value: pass1234
                 -   name: rest-ip
-                    value: 127.0.0.1
+#                    value: 127.0.0.1
+                    value: <rw_mgmt_ip>
                 -   name: rest-port
                     value: 8082
                 seq: '1'
