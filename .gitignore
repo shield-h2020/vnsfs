@@ -1,0 +1,3 @@
+*.tar.gz
+descriptor-packages/*/*/checksums.txt
+juju-charms/layers/*/deps
