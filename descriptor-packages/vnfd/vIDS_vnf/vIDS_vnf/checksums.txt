@@ -1,2 +1,0 @@
-da9d5953d6024373d6b64d528200eaf5  vIDS_vnfd.yaml
-bc681c5a4c3cdc09c013df2d2239f3d2  icons/osm.png
