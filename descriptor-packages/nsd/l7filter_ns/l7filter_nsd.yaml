@@ -1,14 +1,14 @@
 nsd:nsd-catalog:
     nsd:
-    -   id: vFirewall_nsd_v1_0
-        name: vFirewall_nsd
-        short-name: vFirewall_nsd
-        description: Network service descriptor to instantiate vFirewall VNF
+    -   id: l7filter_nsd_v1_1
+        name: l7filter_nsd
+        short-name: l7filter_nsd
+        description: Network service descriptor to instantiate l7filter VNF
         vendor: NCSRD
-        version: '1.0'
+        version: '1.1'
 
         # Place the logo as png in icons directory and provide the name here
-        logo: vFirewall.png
+        logo: l7filter.png
 
         # Specify the VNFDs that are part of this NSD
         constituent-vnfd:
@@ -16,27 +16,29 @@ nsd:nsd-catalog:
             # vnfd-id-ref is the id of the VNFD
             # Multiple constituent VNFDs can be specified
         -   member-vnf-index: 1
-            vnfd-id-ref: vFirewall_vnfd_v1_0
+            vnfd-id-ref: l7filter_vnfd_v1_1
 
 
 
         vld:
         # Networks for the VNFs
-            -   id: vFirewall_nsd_vld1
-                name: vFirewall_nsd_vld1
-                short-name: vFirewall_nsd_vld1
+            -   id: l7filter_nsd_vld1
+                name: l7filter_nsd_vld1
+                short-name: l7filter_nsd_vld1
                 type: ELAN
+                mgmt-network: 'true'
+                vim-network-name: 'provider'
                 vnfd-connection-point-ref:
                 # Specify the constituent VNFs
                 # member-vnf-index-ref - entry from constituent vnf
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: vFirewall_vnfd_v1_0
+                    nsd:vnfd-id-ref: l7filter_vnfd_v1_1
                     nsd:vnfd-connection-point-ref: eth0
-            -   id: vFirewall_nsd_vld2
-                name: vFirewall_nsd_vld2
-                short-name: vFirewall_nsd_vld2
+            -   id: l7filter_nsd_vld2
+                name: l7filter_nsd_vld2
+                short-name: l7filter_nsd_vld2
                 type: ELAN
                 vnfd-connection-point-ref:
                 # Specify the constituent VNFs
@@ -44,11 +46,11 @@ nsd:nsd-catalog:
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: vFirewall_vnfd_v1_0
+                    nsd:vnfd-id-ref: l7filter_vnfd_v1_1
                     nsd:vnfd-connection-point-ref: eth1
-            -   id: vFirewall_nsd_vld3
-                name: vFirewall_nsd_vld3
-                short-name: vFirewall_nsd_vld3
+            -   id: l7filter_nsd_vld3
+                name: l7filter_nsd_vld3
+                short-name: l7filter_nsd_vld3
                 type: ELAN
                 vnfd-connection-point-ref:
                 # Specify the constituent VNFs
@@ -56,5 +58,5 @@ nsd:nsd-catalog:
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: vFirewall_vnfd_v1_0
+                    nsd:vnfd-id-ref: l7filter_vnfd_v1_1
                     nsd:vnfd-connection-point-ref: eth2
