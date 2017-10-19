@@ -1,0 +1,28 @@
+.lvl_1-heading{
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.lvl_2-heading{
+    display:list-item;
+    position: relative;
+    left: 18px;
+    text-indent: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.lvl_3-heading{
+    text-indent: 14px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.hide-text{
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
