@@ -62,16 +62,15 @@ def get_policies():
 def set_policies():
     policies = action_get("policies")
     policies = read_policies_content(policies)
-    args = [("actions.set-policies", "/createDB", "GET")]
     headers = {"Content-Type": "application/xml"}
-    args += [("actions.set-policies", "/createFlowsXML/v2",
+    args = [("actions.set-policies", "/createFlowsXML/v2",
         "POST", headers, policies)]
     ssh_curl_call(args)
 
 @when("l7filter.configured")
 @when("actions.delete-policies")
 def delete_policies():
-    args = [("actions.delete-policies", "/deleteDB", "DELETE")]
+    args = [("actions.delete-policies", "/deleteAllFlows/v2", "DELETE")]
     ssh_curl_call(args)
 
 @when("l7filter.configured")
@@ -93,6 +92,10 @@ def read_policies_content(policies):
         contents = response.read()
     except (HTTPError, URLError, ValueError) as e:
         print("Direct content or invalid URL provided")
+    # Unescape data so it can be directly sent to the vNSF
+    if isinstance(contents, str):
+        contents = contents.replace('\\"', '"')
+        contents = contents.replace('\"', '"')
     return contents
 
 def ssh_call(action_name, cmd):
@@ -113,24 +116,16 @@ def ssh_curl_call(arg_list):
         except:
             pass
 
-def curl_call(action_name, path, method, headers={}, data={}):
+def curl_call(action_name, path, method, headers={}, data=""):
     try:
         import requests
         resp = None
         curl_url = "http://{}:{}{}".format(rest_ip, rest_port, path)
-        if method == "GET":
-            resp = requests.get(curl_url,
-                headers=headers,
-                verify=False)
-        elif method == "POST":
-            resp = requests.post(curl_url,
-                headers=headers,
-                data=data,
-                verify=False)
-        elif method == "DELETE":
-            resp = requests.delete(curl_url,
-                    headers=headers,
-                    verify=False)
+        request_method = getattr(requests, method.lower())
+        resp = request_method(curl_url,
+            headers=headers,
+            data=data,
+            verify=False)
         result = resp.text
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
