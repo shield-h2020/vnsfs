@@ -1,0 +1,102 @@
+<!-- Global CSS rules -->
+<link href="../static/css/global.css" rel="stylesheet">
+<link href="../static/bower_components/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+<style>
+    .checkbox {
+    vertical-align: text-bottom;
+    }
+
+</style>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Firewall VNF
+                <!--<input id="toggle-firewall" checked="false"  data-on="Enabled" data-off="Disabled" data-toggle="toggle" data-onstyle="success" data-offstyle="danger" type="checkbox">-->
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+    <!-- MAIN CONTENT -->
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Flow Rules
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Priority</th>
+                                            <th>Protocol</th>
+                                            <th>Source IP</th>
+                                            <th>Dest IP</th>
+                                            <th>Source Port</th>
+                                            <th>Dest Port</th>
+                                            <th>Rate Limit</th>
+                                            <th>Action</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table_body">
+                                        <!-- Table content will be generated here! -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+    </div>
+    <!-- /.row -->
+
+
+    <script src="../static/bower_components/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
+
+
+    <!-- Ajax post request test-->
+    <script src="../static/js/ajax/listOfRulesAjax.js"></script>
+    <!-- All js functionality for this page -->
+    <script src="../static/js/page_specific/list_of_rules.js"></script>
+
+<script>
+  $(function() {
+
+    getFirewallStatus(function(result){
+
+        if(result.status == "found"){
+            $('#toggle-firewall').bootstrapToggle('on');
+        }
+        else{
+            $('#toggle-firewall').bootstrapToggle('off');
+        }
+
+
+
+        $('#toggle-firewall').change(function() {
+            console.log('Toggle: ' + $(this).prop('checked'));
+            if ($(this).prop('checked')){
+                startFirewall();
+            }
+            else{
+                stopFirewall();
+            }
+        });
+
+    });
+
+
+
+
+
+  });
+</script>

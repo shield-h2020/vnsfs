@@ -1,0 +1,11 @@
+.loading-icon-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.loading-icon {
+    vertical-align: middle;
+    max-height: 25px;
+    max-width: 160px;
+}
