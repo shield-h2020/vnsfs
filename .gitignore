@@ -3,3 +3,4 @@ descriptor-packages/*/*/charms/*
 descriptor-packages/*/*/checksums.txt
 juju-charms/layers/*/deps
 src/vnf/l7filter/.idea/
+.idea/
