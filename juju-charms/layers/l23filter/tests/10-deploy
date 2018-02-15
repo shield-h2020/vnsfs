@@ -9,13 +9,13 @@ class TestCharm(unittest.TestCase):
     def setUp(self):
         self.d = amulet.Deployment()
 
-        self.d.add('l7filter')
-        self.d.expose('l7filter')
+        self.d.add("l23filter")
+        self.d.expose("l23filter")
 
         self.d.setup(timeout=900)
         self.d.sentry.wait()
 
-        self.unit = self.d.sentry['l7filter'][0]
+        self.unit = self.d.sentry["l23filter"][0]
 
 #    def test_service(self):
 #        # test we can access over http
@@ -31,5 +31,5 @@ class TestCharm(unittest.TestCase):
 #        # - .relation(relation, service:rel) - Get relation data from return service
 
         
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

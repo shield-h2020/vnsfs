@@ -1,24 +1,24 @@
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: l7filter_vnfd_v1_2
-        name: l7filter_vnfd
-        short-name: l7filter
+    -   id: l23filter_vnfd_v1_2
+        name: l23filter_vnfd
+        short-name: l23filter
         description: Virtual Firewall implementation using Open Virtual Switch
         vendor: NCSRD
         version: '1.2'
 
         # Place the logo as png in icons directory and provide the name here
-        logo: l7filter.png
+        logo: l23filter.png
 
         # Management interface
         mgmt-interface:
-            vdu-id: l7filter_vdu
+            vdu-id: l23filter_vdu
 
         # Atleast one VDU need to be specified
         vdu:
-        -   id: l7filter_vdu
-            name: l7filter_vdu
-            description: l7filter vdu
+        -   id: l23filter_vdu
+            name: l23filter_vdu
+            description: l23filter vdu
             count: 1
 
             # Flavour of the VM to be instantiated for the VDU
@@ -28,7 +28,7 @@ vnfd:vnfd-catalog:
                 storage-gb: 20
 
             # Image/checksum or image including the full path
-            image: l7filter_v2
+            image: l23filter_v2
             #checksum: 
 
             external-interface:
@@ -112,4 +112,4 @@ vnfd:vnfd-catalog:
                     value: 8082
                 seq: '1'
             juju:
-                charm: l7filter
+                charm: l23filter

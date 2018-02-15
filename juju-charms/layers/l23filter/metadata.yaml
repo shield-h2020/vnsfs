@@ -1,8 +1,8 @@
-name: l7filter
-summary: Configuration methods for L7Filter vNSF
+name: l23filter
+summary: Configuration methods for L2/3Filter vNSF
 maintainer: SHIELD <local@shield>
 description: |
-  Configuration methods for L7Filter vNSF
+  Configuration methods for L2/3Filter vNSF
 tags:
   # Replace "misc" with one or more whitelisted tags from this list:
   # https://jujucharms.com/docs/stable/authors-charm-metadata
