@@ -15,13 +15,13 @@ To prepare a new package (assume it's called `$pkg_name`), you must first place 
 ```
 .
 +-- descriptor-packages
-¦   +-- nsd
-¦   ¦   +-- ${pkg_name}_ns
-¦   +-- vnfd
-¦       +-- ${pkg_name}_vnf
+|   +-- nsd
+|   |   +-- ${pkg_name}_ns
+|   +-- vnfd
+|       +-- ${pkg_name}_vnf
 +-- juju-charms
-¦   +-- layers
-¦       +-- ${pkg_name}
+|   +-- layers
+|       +-- ${pkg_name}
 +-- src
     +-- vnf
         +-- ${pkg_name}
