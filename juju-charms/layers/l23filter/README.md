@@ -19,11 +19,11 @@ cd vnsfs/juju-charms
 # Setup environment variables
 source juju-env.sh
 
-cd layers/l7filter
+cd layers/l23filter
 charm build
 
 # Examine the built charm
-cd builds/l7filter
+cd builds/l23filter
 ls
 actions       config.yaml  icon.svg    metadata.yaml     tests
 actions.yaml  copyright    layer.yaml  reactive          tox.ini
@@ -32,7 +32,7 @@ builds        hooks        Makefile    requirements.txt
 
 ```
 
-The `charm build` process combines this l7filter layer with each layer that it
+The `charm build` process combines this l23filter layer with each layer that it
 has included in the `metadata.yaml` file, along with their various dependencies.
 
 This built charm is what will then be used by the SO to communicate with the
@@ -40,7 +40,7 @@ VNF.
 
 # Configuration
 
-The l7filter charm has several configuration properties that can be set via
+The l23filter charm has several configuration properties that can be set via
 the SO:
 
 - ssh-hostname
@@ -55,15 +55,15 @@ connect to the VNF image.
 
 # Integration
 
-Copy the built charm into the appropriate folder within the VNF. From the `builds/l7filter` folder:
+Copy the built charm into the appropriate folder within the VNF. From the `builds/l23filter` folder:
 
 ```bash
 cd ../../
-l7filter_vnfd=../../../descriptor-packages/vnfd/vFirewall_vnf
-mkdir -p $l7filter_vnfd/charms
-mv builds/l7filter $l7filter_vnfd/charms/
+l23filter_vnfd=../../../descriptor-packages/vnfd/vFirewall_vnf
+mkdir -p $l23filter_vnfd/charms
+mv builds/l23filter $l23filter_vnfd/charms/
 rm -r builds
-cd $l7filter_vnfd
+cd $l23filter_vnfd
 ```
 
 Once placed in the VNF package, the VNF descriptor must be configured appropriately, and the

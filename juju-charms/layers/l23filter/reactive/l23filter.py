@@ -22,42 +22,42 @@ from subprocess import (
 cfg = config()
 rest_ip = cfg.get("ssh-hostname")
 rest_port = cfg.get("rest-port")
-status_file = "l7filter_status.log"
+status_file = "l23filter_status.log"
 policies_file = "policies"
 
 @when("config.changed")
 def config_changed():
-    set_flag("l7filter.configured")
+    set_flag("l23filter.configured")
     status_set("active", "ready!")
     return
 
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.start")
 def start():
     cmd = "touch ~/" + status_file + "; echo \"" + log_action("start") + "\" >> ~/" + status_file
     ssh_call("actions.start", cmd)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.stop")
 def stop():
     cmd = "touch ~/" + status_file + "; echo \"" + log_action("stop") + "\" >> ~/" + status_file
     ssh_call("actions.stop", cmd)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.restart")
 def restart():
     cmd = "touch ~/" + status_file + "; echo \"" + log_action("restart") + "\" >> ~/" + status_file
     ssh_call("actions.restart", cmd)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.get-policies")
 def get_policies():
     headers = {"Content-Type": "application/json"}
     args = [("actions.get-policies", "/getFlow/v2", "POST", headers)]
     ssh_curl_call(args)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.set-policies")
 def set_policies():
     policies = action_get("policies")
@@ -67,13 +67,13 @@ def set_policies():
         "POST", headers, policies)]
     ssh_curl_call(args)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.delete-policies")
 def delete_policies():
     args = [("actions.delete-policies", "/deleteAllFlows/v2", "DELETE")]
     ssh_curl_call(args)
 
-@when("l7filter.configured")
+@when("l23filter.configured")
 @when("actions.delete-policy")
 def delete_policy():
     policy = action_get("policy")
