@@ -1,12 +1,47 @@
 # vNSFs
 
-Repository for NF packages, as used in [SHIELD](https://www.shield-h2020.eu):
+Repository for OSM-based NS and vNSF packages, as used in [SHIELD](https://www.shield-h2020.eu):
 
-* Package descriptors for vNSFs and NSs (see [*OSM samples*](https://osm.etsi.org/gitweb/?p=osm/devops.git;a=tree;f=descriptor-packages))
+## Structure definition
+
+This repository contains placeholders, to be filled per NS and/or vNSF packages.
+
+* Package descriptors and resources for NSs and vNSFs (see [*OSM samples*](https://osm.etsi.org/gitweb/?p=osm/devops.git;a=tree;f=descriptor-packages))
+* Package documentation (deployment guide, required resources, interfaces)
 * Juju charms for vNSFs (see [*OSM samples*](https://osm.etsi.org/gitweb/?p=osm/devops.git;a=tree;f=juju-charms))
+* MSPL sample/s for each vNSF (ideally with scaped double quotes)
+* SHIELD security manifests (see samples for [*vNSF*](https://github.com/shield-h2020/store/blob/master/docs/vnsf/packaging.md#datamodel) and [*NS*](https://github.com/shield-h2020/store/blob/master/docs/ns/packaging.md#security-manifest-manifestyaml))
 * Sources and data required for vNSF and NS operation
 
-# Preparing the OSM package
+The high-level layout and a brief description is provided below.
+
+```
+.
++-- descriptor-packages          # <-- NS and vNSF descriptors and static resources
+|   +-- nsd
+|   |   +-- ${pkg_name}_ns
+|   +-- vnfd
+|       +-- ${pkg_name}_vnf
++-- doc                          # <-- NS documentation: guide, resources, interfaces
+|   +-- ns
+|       +-- ${pkg_name}
++-- juju-charms                  # <-- vNSF charms (e.g., policy-to-configuration translation)
+|   +-- layers
+|       +-- ${pkg_name}
++-- mspl                         # <-- vNSF sample/s for MSPL (medium-level security policies)
+|   +-- vnf
+|       +-- ${pkg_name}
++-- security-manifest            # <-- NS and vNSF security manifests (used to generate SHIELD package)
+|   +-- ns
+|   |   +-- ${pkg_name}
+|   +-- vnf
+|       +-- ${pkg_name}
++-- src                          # <-- vNSF source code: internal logic
+    +-- vnf
+        +-- ${pkg_name}
+```
+
+## Preparing the OSM package
 
 An OSM package can contain the data for either a vNSF or NS.
 
@@ -24,7 +59,7 @@ ${pkg_name}_${pkg_type}/
 |   +-- ${pkg_name}.png
 +-- ...
 +-- ${pkg_name}_nsd.yaml
-  ```
+```
 
   Note: the root directory must be named `${pkg_name}_${pkg_type}`.
   Note: the only mandatory file is the descriptor itself (the YAML file).
@@ -35,22 +70,17 @@ ${pkg_name}_${pkg_type}/
 .
 +-- descriptor-packages
 |   +-- nsd                      # <-- Place the NS package here
-|   |   +-- ${pkg_name}_ns
+|       +-- ${pkg_name}_ns
 |   +-- vnfd                     # <-- Place the vNSF package here
 |       +-- ${pkg_name}_vnf
-+-- juju-charms
-|   +-- layers
-|       +-- ${pkg_name}
-+-- src
-    +-- vnf
-        +-- ${pkg_name}
-  ```
+...
+```
 
 4. Define the structure for the Juju charms used by your vNSF package
 
   ```
 ${pkg_name}/
-+-- actions
++-- actions                  # <-- Minimum actions required for SHIELD
 |   +-- delete-policies
 |   +-- delete-policy
 |   +-- get-policies
@@ -66,32 +96,70 @@ ${pkg_name}/
 +-- tests
     +-- 00-setup
     +-- 10-deploy
-  ```
+```
 
   Note: the root directory must be named `${pkg_name}`.
-  Note: there may be other actions allowed -- these ones are the minimum required in order to allow configuration from vNSFO.
+  Note: other actions may be provided -- the above ones are the minimum required in order to allow configuration from vNSFO.
 
 5. Place the directory with the specific Juju charms under `juju-charms/layers`
 
   ```
 .
-+-- descriptor-packages
-|   +-- nsd
-|   |   +-- ${pkg_name}_ns
-|   +-- vnfd
-|       +-- ${pkg_name}_vnf
+...
 +-- juju-charms                  # <-- Place the vNSF charms here
 |   +-- layers
 |       +-- ${pkg_name}
-+-- src
-    +-- vnf
-        +-- ${pkg_name}
-  ```
+...
+```
 
 6. Run the generation script, using the package name as argument:
 
   ```
 generate_osm_package.sh ${pkg_name}
-  ```
+```
 
-  The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the package.
+  The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
+
+## Preparing the SHIELD package
+
+**Work in progress**
+
+A SHIELD package contains some extra meta-data (mostly for security attestation purposes), stored in its security `manifest.yml`.
+Specific scripts will be provided in time to generate this kind of package.
+
+## Documenting the package
+
+For certification purposes, the NS and vNSF developer may want to document each package. A certified-to-be SHIELD package must provide the following data:
+
+* **Deployment guide**: clear steps for deployment via OSM
+* **Resource requirements**: minimum and expected resources needed (memory, hard disk, network interfaces, etc)
+* **Interfaces**: clear definition of the vNSF management interfaces
+
+```
+...
++-- doc
+|   +-- ns                        # <-- Documentation per NS
+|       +-- ${pkg_name}
+|           +-- deployment.md     # <-- Deployment guide
+|           +-- interfaces.md     # <-- Details on ifaces (min: management)
+|           +-- requirements.md   # <-- Minimum & expected required resources
+...
+```
+
+## Testing the package
+
+For certification purposes, the NS and vNSF developer may want to test each package. A certified-to-be SHIELD package must test the following:
+
+* Non-functional testing procedures:
+ * Durability: Continuous running for periods of 4hs, 8hs, 24hs, 48hs
+ * Failure recovery: show report incident and recovery process in the following cases:
+   * VM restart
+   * Platform restart
+   * VM shutdown
+   * Platform shutdown
+ * vNSF hardening as defined in D2.2, NF09
+* Functional testing procedures:
+ * Actual package functionality
+ * Interface with DARE is able to send collected data
+ * Interface with vNSFO is able to receive medium-level security policies
+ * Performance: ensure throughput targets are met by the package. Testing includes different packet sizes (including IMIX) and protocols (UDP and TCP). For each target, delay, packet loss and jitter should be measured.
