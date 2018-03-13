@@ -122,25 +122,6 @@ sudo ./generate_osm_package.sh ${pkg_name}
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
 
-## Preparing the SHIELD package
-
-**Work in progress**
-
-A SHIELD package contains some extra meta-data (mostly for security attestation purposes), stored in its security `manifest.yml`.
-Specific scripts will be provided in time to generate this kind of package.
-
-1. Add the SHIELD security manifest for each vNSF and NS in the following folder
-
-  ```
-...
-+-- security-manifest            # <-- NS and vNSF security manifests (used to generate SHIELD package)
-|   +-- ns
-|   |   +-- ${pkg_name}
-|   +-- vnf
-|       +-- ${pkg_name}
-...
-```
-
 ## Documenting the package
 
 For certification purposes, the NS and vNSF developer may want to document each package. A certified-to-be SHIELD package must provide the following data:
@@ -177,3 +158,32 @@ For certification purposes, the NS and vNSF developer may want to test each pack
  * Interface with DARE is able to send collected data
  * Interface with vNSFO is able to receive medium-level security policies
  * Performance: ensure throughput targets are met by the package. Testing includes different packet sizes (including IMIX) and protocols (UDP and TCP). For each target, delay, packet loss and jitter should be measured.
+
+## Preparing the SHIELD package
+
+**Work in progress**
+
+A SHIELD package contains some extra meta-data (mostly for security attestation purposes), stored in its security `manifest.yml`.
+Specific scripts will be provided in time to generate this kind of package.
+
+1. Add the SHIELD security manifest for each vNSF and NS in the following folder:
+
+  ```
+  ...
+  +-- security-manifest            # <-- NS and vNSF security manifests (used to generate SHIELD package)
+  |   +-- ns
+  |   |   +-- ${pkg_name}
+  |   +-- vnf
+  |       +-- ${pkg_name}
+  ...
+  ```
+
+2. Run the generation script, using the absolute path to the (vNSF and NS) package as argument:
+
+  ```
+  sudo ./generate_shield_package.sh ${path_to_package}
+  ```
+
+  The script will fetch the OSM package, compute its SHA-256 hash and insert it into the `manifest.yml` (security manifest), then generate the SHIELD package.
+  Note: for the vNSF package, extra hashes or keys may be needed for attestation purposes. Manually modify these beforehand, in the `security-manifest` directory.
+
