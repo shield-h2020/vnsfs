@@ -53,12 +53,12 @@ To prepare a new package (assume it's called `$pkg_name`), carry on with the fol
 
   ```
 ${pkg_name}_${pkg_type}/
-+-- cloud_init
++-- cloud_init                         # <-- Optional
 |   +-- ${pkg_name}_cloud_init.cfg
-+-- icons
++-- icons                              # <-- Optional
 |   +-- ${pkg_name}.png
-+-- ...
-+-- ${pkg_name}_nsd.yaml
++-- ...                                # <-- Optional
++-- ${pkg_name}_nsd.yaml               # <-- Mandatory
 ```
 
   Note: the root directory must be named `${pkg_name}_${pkg_type}`.
@@ -69,9 +69,9 @@ ${pkg_name}_${pkg_type}/
   ```
 .
 +-- descriptor-packages
-|   +-- nsd                      # <-- Place the NS package here
+|   +-- nsd                      # <-- Place the NS package under this directory
 |       +-- ${pkg_name}_ns
-|   +-- vnfd                     # <-- Place the vNSF package here
+|   +-- vnfd                     # <-- Place the vNSF package under this directory
 |       +-- ${pkg_name}_vnf
 ...
 ```
@@ -81,10 +81,12 @@ ${pkg_name}_${pkg_type}/
   ```
 ${pkg_name}/
 +-- actions                  # <-- Minimum actions required for SHIELD
+|   +-- ...
 |   +-- delete-policies
 |   +-- delete-policy
 |   +-- get-policies
 |   +-- set-policies
+|   +-- ...
 +-- actions.yaml
 +-- config.yaml
 +-- icon.svg
@@ -115,7 +117,7 @@ ${pkg_name}/
 6. Run the generation script, using the package name as argument:
 
   ```
-generate_osm_package.sh ${pkg_name}
+sudo ./generate_osm_package.sh ${pkg_name}
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
@@ -126,6 +128,18 @@ generate_osm_package.sh ${pkg_name}
 
 A SHIELD package contains some extra meta-data (mostly for security attestation purposes), stored in its security `manifest.yml`.
 Specific scripts will be provided in time to generate this kind of package.
+
+1. Add the SHIELD security manifest for each vNSF and NS in the following folder
+
+  ```
+...
++-- security-manifest            # <-- NS and vNSF security manifests (used to generate SHIELD package)
+|   +-- ns
+|   |   +-- ${pkg_name}
+|   +-- vnf
+|       +-- ${pkg_name}
+...
+```
 
 ## Documenting the package
 
