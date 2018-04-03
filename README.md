@@ -22,8 +22,10 @@ The high-level layout and a brief description is provided below.
 |   |   +-- ${pkg_name}_ns
 |   +-- vnfd
 |       +-- ${pkg_name}_vnf
-+-- doc                          # <-- NS documentation: guide, resources, interfaces
++-- doc                          # <-- NS and vNSF documentation: guide, resources, interfaces
 |   +-- ns
+|       +-- ${pkg_name}
+|   +-- vnf
 |       +-- ${pkg_name}
 +-- juju-charms                  # <-- vNSF charms (e.g., policy-to-configuration translation)
 |   +-- layers
@@ -130,6 +132,10 @@ For certification purposes, the NS and vNSF developer may want to document each 
 * **Resource requirements**: minimum and expected resources needed (memory, hard disk, network interfaces, etc)
 * **Interfaces**: clear definition of the vNSF management interfaces
 
+Also, for operational purposes there should be enough information to be able to externally interact with the vNSF and its contained services:
+
+* **Services**: Define services and access per vNSF and VDU
+
 ```
 ...
 +-- doc
@@ -138,6 +144,10 @@ For certification purposes, the NS and vNSF developer may want to document each 
 |           +-- deployment.md     # <-- Deployment guide
 |           +-- interfaces.md     # <-- Details on ifaces (min: management)
 |           +-- requirements.md   # <-- Minimum & expected required resources
+|   +-- vnf                       # <-- Documentation per vNSF
+|       +-- ${pkg_name}
+|           +-- ${vnsf_name}      # <-- Name for specific vNSF
+|               +-- services.md   # <-- Definition of services and access per VDU
 ...
 ```
 
