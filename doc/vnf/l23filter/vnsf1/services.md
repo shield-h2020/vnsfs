@@ -13,4 +13,4 @@ Follows the indications to access the VDU/s and the description of the services 
 
 This API allows the configuration of the main vNSF; allowing to set policies. Internally, the vNSF translates these to low-level configurations.
 
-Methods' definition available in the [source code](../../../src/vnf/l23filter/api/v2.py).
+Methods' definition available in the [source code](../../../../src/vnf/l23filter/api/v2.py).
