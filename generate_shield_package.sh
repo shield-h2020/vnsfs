@@ -10,7 +10,6 @@ error() {
 [[ ! -f $p_path ]] && error "Could not find package in file system"
 
 p_name=$(basename $p_path)
-#p_id="${p_name%.tar.gz}"
 p_id=$p_name
 
 [[ -z $p_id  || -z $p_path ]] && error "The path to an OSM package must be provided"
@@ -47,15 +46,10 @@ fi
 
 clear
 
-# Uncompress package to verify contents
-#tar -zxf $p_name
-#rm $p_id
-
 gen_hash_for_pkg() {
   ns_pkg=$(sed -n -e '/package/ s/.*\: *//p' manifest.yaml)
   sha256_p_ns=$(sha256sum $ns_pkg)
   sha256_p_ns=$(echo $sha256_p_ns | awk '{print $1;}')
-#  grep -l "hash: <sha256-based hash of the .tar.gz package defined above>" manifest.yaml | xargs sed -i -e "s|hash: <sha256-based hash of the .tar.gz package defined above>|hash: $sha256_p_ns|"
   sed -i -e "s/hash: <sha256-based hash of the .tar.gz package defined above>/hash: $sha256_p_ns/g" manifest.yaml
 }
 
