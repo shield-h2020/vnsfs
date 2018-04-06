@@ -29,7 +29,6 @@ fi
 repo_root=$PWD
 
 manifest_path="${repo_root}/security-manifest/${p_type}/${p_id_s}/manifest.yaml"
-echo $manifest_path
 [[ ! -f $manifest_path ]] && error "Could not find SHIELD security manifest for this package"
 
 pkg_tmp=$(mktemp -d)
