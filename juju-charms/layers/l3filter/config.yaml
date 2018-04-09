@@ -1,0 +1,5 @@
+options:
+  rest-api-port:
+    type: string
+    default:
+    description: "The port of the REST service exposed by the VNF"
