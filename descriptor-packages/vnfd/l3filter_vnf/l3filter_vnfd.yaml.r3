@@ -92,5 +92,7 @@ vnfd-catalog:
                 -   name: rest-api-port
                     value: 9999
                 seq: '1'
+            -   name: start
+                seq: '2'
             juju:
                 charm: l3filter
