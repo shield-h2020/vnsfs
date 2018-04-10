@@ -10,7 +10,7 @@ error() {
 [[ ! -f $p_path ]] && error "Could not find package in file system"
 
 p_name=$(basename $p_path)
-p_id=$p_name
+p_id="${p_name%.tar.gz}"
 
 [[ -z $p_id  || -z $p_path ]] && error "The path to an OSM package must be provided"
 
