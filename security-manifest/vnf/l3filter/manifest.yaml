@@ -1,0 +1,14 @@
+manifest:vnsf:
+    type: OSM
+    package: l3filter_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: l3filter_vnf/l3filter_vnfd.yaml
+    properties:
+        vendor: POLITO
+        capabilities: ["Filter", "L3"]
+    security_info:
+        vdu:
+          - id: l3filter_vdu
+            hash: <sha256-based hash of the VDU image defined above>
+            attestation:
+                some_key: <TBD - provided by Trust Monitor>
