@@ -1,0 +1,78 @@
+swagger: '2.0'
+info:
+  description: >-
+    The Forward L7 Filter exposes an API to interact with the HTTPD and ModSecurity
+    Core Rule Set.
+  version: 1.0.0
+  title: Forward L7 Filter
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: marco.debenedictis@polito.it
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: fl7filter
+basePath: /
+schemes:
+  - http
+paths:
+  /getRules/v1:
+    get:
+      summary: Get the ruleset of the iptables instance.
+      description: ''
+      operationId: getRules
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+  /setRules/v1:
+    post:
+      summary: Set the ruleset of the iptables instance.
+      description: ''
+      operationId: setRules
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: data
+          type: string
+          description: >-
+            `<mspl-set>` object containing the ruleset of filtering rules in
+            MSPL format.
+          required: true
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
+  /flushRules/v1:
+    delete:
+      summary: Flushes all the rules from the iptables instance.
+      description: ''
+      operationId: flushRules
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+  '/flushRule/v1/{ruleId}':
+    delete:
+      summary: Flushes a rule from the iptables instance.
+      description: ''
+      operationId: flushRule
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
+      parameters:
+        - in: path
+          name: ruleId
+          type: integer
+          description: Positional index of the rule in the iptables chain.
+          required: true
