@@ -1,0 +1,56 @@
+<mspl-set xmlns="http://security.polito.it/shield/mspl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://security.polito.it/shield/mspl mspl_schema_mod.xsd">
+    <it-resource id="vNSF5">
+        <configuration xsi:type="proxy-configuration">
+            <rule>
+                <source-address>*</source-address>
+                <source-port>80</source-port>
+                <destination-domain>www.example.com</destination-domain>
+                <paths>
+                    <path>
+                        <path-dir>/path1</path-dir>
+                        <destination-address>192.168.45.90</destination-address>
+                        <destination-port>80</destination-port>
+                        <destination-path>/public</destination-path>
+                        <destination-protocol>http</destination-protocol>
+                        <ssl>
+                            <status>ENABLED</status>
+                            <certificate-path>/</certificate-path>
+                            <private-path>/</private-path>
+                        </ssl>
+                        <condition>
+                            <application-layer-condition>
+                                <status>ENABLED</status>
+                                <default-response>403</default-response>
+                                <request-body-inspection>ENABLED</request-body-inspection>
+                                <request-body-limit>1024</request-body-limit>
+                                <response-body-inspection>NOTENABLED</response-body-inspection>
+                            </application-layer-condition>
+                        </condition>
+                    </path>
+                    <path>
+                        <path-dir>/path2</path-dir>
+                        <destination-address>192.168.45.90</destination-address>
+                        <destination-port>80</destination-port>
+                        <destination-path>/private</destination-path>
+                        <destination-protocol>http</destination-protocol>
+                        <ssl>
+                            <status>ENABLED</status>
+                            <certificate-path>/</certificate-path>
+                            <private-path>/</private-path>
+                        </ssl>
+                        <condition>
+                            <application-layer-condition>
+                                <status>ENABLED</status>
+                                <default-response>400</default-response>
+                                <pattern>
+                                    <name>ALL</name>
+                                    <status>ENABLED</status>
+                                </pattern>
+                            </application-layer-condition>
+                        </condition>
+                    </path>
+                </paths>
+            </rule>
+        </configuration>
+    </it-resource>
+</mspl-set>
