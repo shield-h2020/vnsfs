@@ -1,0 +1,39 @@
+nsd:nsd-catalog:
+    nsd:
+    -   id: fl7filter_nsd
+        name: fl7filter_nsd
+        short-name: fl7filter_nsd
+        description: Network Service descriptor of the L7 Filter vNSF
+        vendor: POLITO
+        version: '1.0'
+        constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: fl7filter_vnfd
+
+        vld:
+            -   id: fl7filter_nsd_vld1
+                name: fl7filter_nsd_vld1
+                short-name: fl7filter_nsd_vld1
+                mgmt-network: 'true'
+                type: ELAN
+                vim-network-name: 'provider'
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: fl7filter_vnfd
+                    nsd:vnfd-connection-point-ref: eth0
+            -   id: fl7filter_nsd_vld2
+                name: fl7filter_nsd_vld2
+                short-name: fl7filter_nsd_vld2
+                type: ELAN
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: fl7filter_vnfd
+                    nsd:vnfd-connection-point-ref: eth1
+            -   id: fl7filter_nsd_vld3
+                name: fl7filter_nsd_vld3
+                short-name: fl7filter_nsd_vld3
+                type: ELAN
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: fl7filter_vnfd
+                    nsd:vnfd-connection-point-ref: eth2
