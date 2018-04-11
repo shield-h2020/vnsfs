@@ -1,0 +1,13 @@
+name: fl7filter
+summary: Configuration methods for FL7Filter vNSF
+maintainer: SHIELD <local@shield>
+description: |
+  Configuration methods for FL7Filter vNSF
+tags:
+  # Replace "misc" with one or more whitelisted tags from this list:
+  # https://jujucharms.com/docs/stable/authors-charm-metadata
+  - misc
+subordinate: false
+series:
+    - trusty
+    - xenial
