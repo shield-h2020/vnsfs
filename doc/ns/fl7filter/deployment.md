@@ -31,4 +31,70 @@ Follow the standard OSM procedure to onboard the packages for both the fl7filter
  `mspl/vnf/fl7filter/sample.mspl` content.
 2. Wait for the action to complete (green light).
 3. If successful, verify the content of HTTPD and ModSecurity as follows:
-# TODO
+   1. connect to running instance by using VNC console
+   2. show the content of `/etc/httpd/conf.d/default-site.conf`, it should contain:
+
+```
+<VirtualHost *:80>
+    ServerName www.example.com
+
+
+  <Location /path1>
+    ProxyPass http://192.168.45.90:80/public
+    ProxyPassReverse http://192.168.45.90:80/public
+
+    #SecuRuleInheritance Off
+    SecRuleEngine On
+    SecDefaultAction "phase:2,deny,log,status:403"
+
+    SecRequestBodyAccess On
+    SecRequestBodyLimit 1024
+    SecResponseBodyAccess Off
+
+    #SSL
+    #SSLEngine SSLEngine on
+    #SSLCertificateFile      SSLCertificateFile /
+    #SSLCertificateKeyFile   SSLCertificateKeyFile /
+
+
+
+
+  </Location>
+  <Location /path2>
+    ProxyPass http://192.168.45.90:80/private
+    ProxyPassReverse http://192.168.45.90:80/private
+
+    #SecuRuleInheritance Off
+    SecRuleEngine On
+    SecDefaultAction "phase:2,deny,log,status:400"
+
+    SecRequestBodyAccess On
+    SecRequestBodyLimit 1024
+    SecResponseBodyAccess Off
+
+    #SSL
+    #SSLEngine SSLEngine on
+    #SSLCertificateFile      SSLCertificateFile /
+    #SSLCertificateKeyFile   SSLCertificateKeyFile /
+
+
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_21_protocol_anomalies.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_35_bad_robots.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_45_trojans.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_40_generic_attacks.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_50_outbound.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_47_common_exceptions.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_20_protocol_violations.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_41_sql_injection_attacks.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_41_xss_attacks.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_23_request_limits.conf
+    IncludeOptional modsecurity.d/activated_rules/modsecurity_crs_42_tight_security.conf
+
+
+  </Location>
+</VirtualHost>
+```   
+
+4. Execute the `delete-policies` action from the OSM GUI.
+5. Wait for the action to complete (green light).
+6. If successful, the file `/etc/httpd/conf.d/default-site.conf` (that contains HTTPD and ModSecurity configuration) must be deleted
