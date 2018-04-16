@@ -14,11 +14,13 @@ from charms.reactive import (
 )
 import charms.sshproxy
 import datetime
-from subprocess import (
-    Popen,
-    CalledProcessError,
-    PIPE,
-)
+import os
+import sys
+# from subprocess import (
+#     Popen,
+#     CalledProcessError,
+#     PIPE,
+# )
 
 cfg = config()
 rest_api_hostname = cfg.get("ssh-hostname")
@@ -148,7 +150,7 @@ def read_policies_content(policies):
             policies = "http://" + policies
         response = urllib.request.urlopen(policies)
         contents = response.read()
-    except (HTTPError, URLError, ValueError) as e:
+    except (HTTPError, URLError, ValueError):
         print("read_policies_content: direct content or invalid URL provided")
     # Unescape data so it can be directly sent to the vNSF
     if isinstance(contents, str):
@@ -201,8 +203,8 @@ def curl_call(action_name, path, method, headers={}, data=""):
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         action_fail("command failed: {}, endpoint: {}:{}, filename: {}, \
                 line: {}".format(e,
-                    rest_ip,
-                    rest_port,
+                    rest_api_hostname,
+                    rest_api_port,
                     fname,
                     exc_tb.tb_lineno))
     else:
