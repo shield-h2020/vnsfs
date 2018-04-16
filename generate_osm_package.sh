@@ -10,7 +10,7 @@ v_id_vnfd="${pkg_tmp}/descriptor-packages/vnfd/${v_id}_vnf"
 v_id_nsd="${pkg_tmp}/descriptor-packages/nsd/${v_id}_ns"
 cp -Rp $repo_root/{descriptor-packages,juju-charms} $pkg_tmp/
 cd $pkg_tmp
-sudo chmod $(whoami):$(whoami) $pkg_tmp -R
+#sudo chown $(whoami):$(whoami) $pkg_tmp -R
 
 error() {
   printf "Error: $1\n"
