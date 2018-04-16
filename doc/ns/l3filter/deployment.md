@@ -23,7 +23,7 @@ Follow the standard OSM procedure to onboard the packages for both the L3Filter 
 1. Point to the OSM dashboard and access the "Dashboard > Viewport Dashboard (on NS details) > Compute topology" section
 2. Identify the MSPL (middle-level security policy) used by this package
 3. Point to a running vNSFO instance for SHIELD and [send the MSPL](https://github.com/shield-h2020/nfvo/blob/master/README.md#execute-pre-defined-action-from-a-specific-vnsf)
-3. Access "Dashboard > Viewport Dashboard > *L3Filter running instance* > Service Primitive", select the `set-policies` action and look for a change in the status for the latest request
+4. Access "Dashboard > Viewport Dashboard > *L3Filter running instance* > Service Primitive", select the `set-policies` action and look for a change in the status for the latest request
 
 ## Testing
 
