@@ -1,0 +1,28 @@
+<VirtualHost {{.Rule.SourceAddress}}:{{.Rule.SourcePort}}>
+    ServerName {{.Rule.DomainName}}
+  
+  {{range $a := .Rule.Paths}}
+  <Location {{$a.InputPath}}>
+    ProxyPass {{$a.DestinationProtocol}}://{{$a.DestinationAddress}}:{{$a.DestinationPort}}{{$a.DestinationPath}}
+    ProxyPassReverse {{$a.DestinationProtocol}}://{{$a.DestinationAddress}}:{{$a.DestinationPort}}{{$a.DestinationPath}}
+    
+    #SecuRuleInheritance Off
+    SecRuleEngine {{.ApplicationLayer.Action}}
+    SecDefaultAction "phase:2,deny,log,status:{{.ApplicationLayer.DefaultResponse}}"
+    
+    {{.ApplicationLayer.RequestBodyInspection}}
+    {{.ApplicationLayer.RequestBodyLimit}}
+    {{.ApplicationLayer.ResponseBodyInspection}}
+    
+    #SSL
+    #SSLEngine {{.Ssl.Status}}
+    #SSLCertificateFile      {{.Ssl.CertificatePath}}
+    #SSLCertificateKeyFile   {{.Ssl.PrivatePath}}
+    
+    {{range $b := .ApplicationLayer.Rules}}
+    IncludeOptional {{$b}}{{end}}
+    
+    {{range $c := .ApplicationLayer.AddedRules}}
+    {{$c}}{{end}}
+  </Location>{{end}}
+</VirtualHost>

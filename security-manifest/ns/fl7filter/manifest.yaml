@@ -1,0 +1,7 @@
+manifest:ns:
+    type: OSM
+    package: fl7filter_ns.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: fl7filter_ns/fl7filter_nsd.yaml
+    properties:
+        capabilities: ["Filter", "L7"]

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://security.polito.it/shield/mspl" targetNamespace="http://security.polito.it/shield/mspl" elementFormDefault="qualified">
+   <element name="mspl-set" type="tns:mspl-set">
+      <annotation>
+         <documentation>The root element. A set of configurations.</documentation>
+      </annotation>
+   </element>
+   
+   <complexType name="mspl-set">
+      <sequence maxOccurs="unbounded" minOccurs="1">
+         <annotation>
+            <documentation>The root element. A set of configurations.</documentation>
+         </annotation>
+         <element name="it-resource" type="tns:it-resource" />
+      </sequence>
+   </complexType>
+   
+   <complexType name="it-resource">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="1" name="configuration" type="tns:configuration">
+            <annotation>
+               <documentation>A physical or virtual device that needs to be configured.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+      <attribute use="required" name="id" type="string">
+         <annotation>
+            <documentation>The identifier of the resource.</documentation>
+         </annotation>
+      </attribute>
+   </complexType>
+   
+   <complexType name="configuration" />
+   
+   <complexType name="filtering-configuration">
+      <annotation>
+         <documentation>A configuration for an IT resource.</documentation>
+      </annotation>
+      <complexContent>
+         <extension base="tns:configuration">
+            <sequence>
+               <element maxOccurs="1" minOccurs="0" name="default-action" type="tns:filtering-action">
+                  <annotation>
+                     <documentation>The default action.</documentation>
+                  </annotation>
+               </element>
+               <element maxOccurs="1" minOccurs="0" name="resolution-strategy" type="tns:resolution-strategy">
+                  <annotation>
+                     <documentation>The resolution strategy.</documentation>
+                  </annotation>
+               </element>
+               <element maxOccurs="unbounded" minOccurs="0" name="rule" type="tns:filtering-rule">
+                  <annotation>
+                     <documentation>A list of configuration rules.</documentation>
+                  </annotation>
+               </element>
+            </sequence>
+         </extension>
+      </complexContent>
+   </complexType>
+   
+   <simpleType name="filtering-action">
+      <annotation>
+         <documentation>The actions for the filtering rules.</documentation>
+      </annotation>
+      <restriction base="string">
+         <enumeration value="accept">
+            <annotation>
+               <documentation>The ACCEPT action (accept the packet).</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="drop">
+            <annotation>
+               <documentation>The DROP action (discard the packet).</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="reject">
+            <annotation>
+               <documentation>The REJECT action (discard the packet and send back a destination unreachable).</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="resolution-strategy">
+      <annotation>
+         <documentation>The resolution strategies.</documentation>
+      </annotation>
+      <restriction base="string">
+         <enumeration value="FMR">
+            <annotation>
+               <documentation>First matching rule strategy.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="DTP">
+            <annotation>
+               <documentation>Deny take precedence strategy.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="ATP">
+            <annotation>
+               <documentation>Allow take precedence strategy.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="MSTP">
+            <annotation>
+               <documentation>Most specific take precedence strategy.</documentation>
+            </annotation>
+         </enumeration>
+         <enumeration value="LSTP">
+            <annotation>
+               <documentation>Least specific take precedence strategy.</documentation>
+            </annotation>
+         </enumeration>
+      </restriction>
+   </simpleType>
+   
+   <complexType name="filtering-rule">
+      <annotation>
+         <documentation>A filtering rule.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="1" name="priority" type="positiveInteger">
+            <annotation>
+               <documentation>The rule priority.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="action" type="tns:filtering-action">
+            <annotation>
+               <documentation>The rule action.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="condition" type="tns:filtering-condition">
+            <annotation>
+               <documentation>The rule condition.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <complexType name="filtering-condition">
+      <annotation>
+         <documentation>A filtering rule condition.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="0" name="packet-filter-condition" type="tns:packet-filter-condition">
+            <annotation>
+               <documentation>A condition on the packets.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="application-layer-condition" type="tns:application-layer-condition">
+            <annotation>
+               <documentation>A condition on the application layer.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="stateful-condition" type="tns:stateful-condition">
+            <annotation>
+               <documentation>A condition on the connection state.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="traffic-flow-condition" type="tns:traffic-flow-condition">
+            <annotation>
+               <documentation>A condition on the traffic flow.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <complexType name="packet-filter-condition">
+      <annotation>
+         <documentation>A condition on the traffic packets.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="0" name="direction">
+            <annotation>
+               <documentation>The traffic direction.</documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="inbound">
+                     <annotation>
+                        <documentation>The traffic that is received.</documentation>
+                     </annotation>
+                  </enumeration>
+                  <enumeration value="outbound">
+                     <annotation>
+                        <documentation>The traffic that is sent.</documentation>
+                     </annotation>
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="source-address" type="tns:ip">
+            <annotation>
+               <documentation>The source IP address. It can be a single IP, a range or an IP in CIDR form.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="source-port" type="tns:port">
+            <annotation>
+               <documentation>The source port. It can be a single port number or a range.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="destination-address" type="tns:ip">
+            <annotation>
+               <documentation>The destination IP address. It can be a single IP, a range or an IP in CIDR form.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="destination-port" type="tns:port">
+            <annotation>
+               <documentation>The destination port. It can be a single port number or a range.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="interface" type="string">
+            <annotation>
+               <documentation>The interface of the rule.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="protocol">
+            <annotation>
+               <documentation>The protocol of the rule.</documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="TCP" />
+                  <enumeration value="UDP" />
+               </restriction>
+            </simpleType>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <simpleType name="ip">
+      <annotation>
+         <documentation>An IP. It can be a single IP, a range or an IP in CIDR form.</documentation>
+      </annotation>
+      <restriction base="string">
+         <pattern value="(\d+\.\d+\.\d+\.\d+(-\d+\.\d+\.\d+\.\d+)?)|(\d+\.\d+\.\d+\.\d+/\d+)|\*|any" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="port">
+      <annotation>
+         <documentation>A port. It can be a single port number or a range.</documentation>
+      </annotation>
+      <restriction base="string">
+         <pattern value="(\*|any|\d+(-\d+)?)" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="url">
+      <annotation>
+         <documentation>An URL.</documentation>
+      </annotation>
+      <restriction base="string">
+         <pattern value="(http|https)://.+(:(\*|\d+(-\d+)?))?" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="state">
+      <annotation>
+         <documentation>The state of a TCP connection.</documentation>
+      </annotation>
+      <restriction base="string">
+         <enumeration value="CLOSED" />
+         <enumeration value="LISTEN" />
+         <enumeration value="ESTABLISHED" />
+         <enumeration value="FIN-WAIT-1" />
+         <enumeration value="CLOSE-WAIT" />
+         <enumeration value="FIN-WAIT-2" />
+         <enumeration value="LAST-ACK" />
+         <enumeration value="CLOSING" />
+         <enumeration value="TIME-WAIT" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="method">
+      <annotation>
+         <documentation>An HTTP method.</documentation>
+      </annotation>
+      <restriction base="string">
+         <enumeration value="GET" />
+         <enumeration value="POST" />
+      </restriction>
+   </simpleType>
+   
+   <complexType name="application-layer-condition">
+      <annotation>
+         <documentation>A condition on the application layer.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="0" name="url" type="tns:url">
+            <annotation>
+               <documentation>The URL.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="method" type="tns:method">
+            <annotation>
+               <documentation>The HTTP method.</documentation>
+            </annotation>
+         </element>
+         <!-- added for vNSF Reverse Proxy -->
+         <element maxOccurs="1" minOccurs="0" name="status" type="tns:mode">
+            <annotation>
+               <documentation>Web Application Firewall State</documentation>
+            </annotation>
+         </element> 
+         <element maxOccurs="1" minOccurs="0" name="default-response" type="tns:responsecode">
+            <annotation>
+               <documentation>Default response in case of detection</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="request-body-inspection" type="tns:mode">
+            <annotation>
+               <documentation>Check Request Body</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="request-body-limit" type="int">
+            <annotation>
+               <documentation>Request Body Max Size</documentation>
+            </annotation>
+         </element> 
+         <element maxOccurs="1" minOccurs="0" name="response-body-inspection" type="tns:mode">
+            <annotation>
+               <documentation>Check Response Body</documentation>
+            </annotation>
+         </element>
+         <sequence>
+         	<element maxOccurs="unbounded" minOccurs="0" name="block-ip" type="tns:ip">
+         		<annotation>
+                  <documentation>List of Blocked IPs</documentation>
+               </annotation>
+         	</element>
+         </sequence>
+         <sequence>
+         	<element maxOccurs="unbounded" minOccurs="0" name="restrict" type="string">
+         	   <annotation>
+                  <documentation>List of paths Restricted</documentation>
+               </annotation>
+         	</element>
+         </sequence>
+         <sequence>
+            <element maxOccurs="unbounded" minOccurs="0" name="pattern" type="tns:pattern">
+               <annotation>
+                  <documentation>Common attack patterns countered by a WAF</documentation>
+               </annotation>
+            </element>
+         <!--  -->         
+         </sequence>
+         <sequence>
+         	<element maxOccurs="unbounded" minOccurs="0" name="raw-rule" type="string">
+         	   <annotation>
+                  <documentation>Rule encoded in Base64</documentation>
+               </annotation>
+         	</element>
+         </sequence>
+      </sequence>
+   </complexType>
+   
+   <complexType name="stateful-condition">
+      <annotation>
+         <documentation>A condition on the connection state.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="0" name="state" type="tns:state">
+            <annotation>
+               <documentation>The connection state.</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <complexType name="traffic-flow-condition">
+      <annotation>
+         <documentation>A condition on the traffic flow.</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="0" name="max-connections" type="positiveInteger">
+            <annotation>
+               <documentation>The maximum number of connections per host.</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="rate-limit">
+            <annotation>
+               <documentation>The rate limit for the traffic. It is a number of allowed packets per unit of time (seconds, minutes, hours or days).</documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <pattern value="\d+/(second|minute|hour|day|s|m|h|d)" />
+               </restriction>
+            </simpleType>
+         </element>
+      </sequence>
+   </complexType>
+  
+   <!-- added  -->
+   <complexType name="proxy-configuration">
+      <annotation>
+         <documentation>Proxy configuration for an IT resource</documentation>
+      </annotation>
+      <complexContent>
+         <extension base="tns:configuration">
+            <sequence>
+               <element maxOccurs="1" minOccurs="0" name="rule" type="tns:proxy-rule">
+                  <annotation>
+                     <documentation>A list of proxy rules</documentation>
+                  </annotation>
+               </element>
+            </sequence>
+         </extension>
+      </complexContent>
+   </complexType>
+   
+   <complexType name="proxy-rule">
+      <annotation>
+         <documentation>Proxy rule for IT resource</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="1" name="source-address" type="tns:ip">
+            <annotation>
+               <documentation>Origin Server Address</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="source-port" type="tns:port">
+            <annotation>
+               <documentation>Origin Server Port</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="destination-domain" type="string">
+            <annotation>
+               <documentation>Origin Server Domain Name</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="paths" type="tns:paths">
+            <annotation>
+               <documentation>SSL configuration for the Origin Server</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <complexType name="proxy-condition">
+      <annotation>
+         <documentation>Proxy condition for IT resource</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="1" name="application-layer-condition" type="tns:application-layer-condition">
+            <annotation>
+               <documentation>x509 Certificate Path</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <complexType name="ssl-configuration">
+      <annotation>
+         <documentation>SSL configuration for Web Server</documentation>
+      </annotation>
+      <sequence>
+         <element maxOccurs="1" minOccurs="1" name="status" type="tns:mode" />
+         <element maxOccurs="1" minOccurs="0" name="certificate-path" type="string">
+            <annotation>
+               <documentation>x509 Certificate Path</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="private-path" type="string">
+            <annotation>
+               <documentation>Private Key Path</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+   <simpleType name="mode">
+      <annotation>
+         <documentation>Application Layer Mode</documentation>
+      </annotation>
+      <restriction base="string">
+         <enumeration value="ENABLED" />
+         <enumeration value="NOTENABLED" />
+         <enumeration value="DETECTION_ONLY"/>
+      </restriction>
+   </simpleType>
+  
+   <complexType name="pattern">
+   <sequence>
+     <element maxOccurs="1" minOccurs="1" name="name" type="tns:pattern-name"></element>
+     <element maxOccurs="1" minOccurs="1" name="status" type="tns:mode"></element>
+     </sequence>
+   </complexType>
+   
+   <simpleType name="pattern-name">
+    <annotation>
+         <documentation>The state of a TCP connection.</documentation>
+      </annotation>   
+      <restriction base="string">
+         <enumeration value="SQL_INJECTION" />
+         <enumeration value="PHP_INJECTION" />
+         <enumeration value="XSS" />
+         <enumeration value="GENERIC_ATTACKS" />
+         <enumeration value="BAD_ROBOTS" />
+         <enumeration value="TROJANS" />
+         <enumeration value="REQUEST_LIMITS" />
+         <enumeration value="ALL" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="responsecode">
+   	<annotation>
+         <documentation></documentation>
+      </annotation>   
+      <restriction base="string">
+         <enumeration value="400" />
+         <enumeration value="401" />
+         <enumeration value="403" />
+         <enumeration value="404" />
+         <enumeration value="406" />
+         <enumeration value="500" />
+         <enumeration value="501" />
+         <enumeration value="503" />
+      </restriction>
+   </simpleType>
+   
+   <simpleType name="application-protocol">
+   	<annotation>
+         <documentation></documentation>
+      </annotation>   
+      <restriction base="string">
+         <enumeration value="http" />
+         <enumeration value="https" />
+      </restriction>
+   </simpleType>
+   
+   <complexType name="paths">
+      <sequence>
+         <element maxOccurs="unbounded" minOccurs="1" name="path" type="tns:path" />
+      </sequence>
+   </complexType>
+   
+   <complexType name="path">
+      <sequence>
+         <element maxOccurs="1" minOccurs="1" name="path-dir" type="string">
+            <annotation>
+               <documentation>SSL configuration for the Origin Server</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="destination-address" type="tns:ip">
+            <annotation>
+               <documentation>Origin Server Address</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="destination-port" type="tns:port">
+            <annotation>
+               <documentation>Origin Server Port</documentation>
+            </annotation>
+         </element>     
+         <element maxOccurs="1" minOccurs="1" name="destination-path" type="string">
+            <annotation>
+               <documentation>Origin Server Port</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="1" name="destination-protocol" type="tns:application-protocol">
+            <annotation>
+               <documentation>Origin Server Port</documentation>
+            </annotation>
+         </element>
+         <!-- add more ssl options here -->
+         <element maxOccurs="1" minOccurs="0" name="ssl" type="tns:ssl-configuration">
+            <annotation>
+               <documentation>SSL configuration for the Origin Server</documentation>
+            </annotation>
+         </element>
+         <element maxOccurs="1" minOccurs="0" name="condition" type="tns:proxy-condition">
+            <annotation>
+               <documentation>The rule condition</documentation>
+            </annotation>
+         </element>
+      </sequence>
+   </complexType>
+   
+</schema>

@@ -1,0 +1,95 @@
+vnfd-catalog:
+    vnfd:
+    -   description: Layer 7 Filter implementation using ModSecurity and Apache
+        id: fl7filter_vnfd
+        logo: centos-logo.png
+        mgmt-interface:
+            vdu-id: fl7filter_vdu
+        name: fl7filter_vnfd
+        connection-point:
+        -   name: eth0
+            type: VPORT
+        -   name: eth1
+            type: VPORT
+        -   name: eth2
+            type: VPORT
+
+        service-function-chain: UNAWARE
+        short-name: fl7filter
+        vdu:
+        -   cloud-init-file: cloud_init.cfg
+            count: '1'
+            description: fl7filter-VM
+            guest-epa:
+                cpu-pinning-policy: ANY
+            id: fl7filter_vdu
+            image: CentOS-7-Cloud
+            external-interface:
+            -   vnfd-connection-point-ref: eth0
+                name: eth0
+                virtual-interface:
+                    type: OM-MGMT
+            -   vnfd-connection-point-ref: eth1
+                name: eth1
+                virtual-interface:
+                    type: VIRTIO
+            -   vnfd-connection-point-ref: eth2
+                name: eth2
+                virtual-interface:
+                    type: VIRTIO
+            name: fl7filter_vdu
+            vm-flavor:
+                memory-mb: '4096'
+                storage-gb: '10'
+                vcpu-count: '2'
+        vendor: POLITO
+        version: '1.0'
+        vnf-configuration:
+            config-attributes:
+                config-delay: 1
+            service-primitive:
+            -   name: start
+            -   name: stop
+            -   name: restart
+            -   name: config
+                parameter:
+                -   data-type: STRING
+                    default-value: <rw_mgmt_ip>
+                    name: ssh-hostname
+                -   data-type: STRING
+                    default-value: centos
+                    name: ssh-username
+                -   data-type: STRING
+                    default-value: osm4u
+                    name: ssh-password
+                -   data-type: STRING
+                    default-value: 9999
+                    name: rest-api-port
+            -   name: set-policies
+                parameter:
+                -   data-type: STRING
+                    default-value: ""
+                    name: policies
+            -   name: get-policies
+            -   name: delete-policy
+                parameter:
+                -   data-type: INTEGER
+                    default-value: 1
+                    name: policy
+            -   name: delete-policies
+            initial-config-primitive:
+            -   name: config
+                parameter:
+                -   name: ssh-hostname
+                    value: <rw_mgmt_ip>
+                -   name: ssh-username
+                    value: centos
+                -   name: ssh-password
+                    value: osm4u
+                -   name: rest-api-port
+                    value: 9999
+                seq: '1'
+            -   name: start
+                seq: '2'
+            juju:
+                charm: fl7filter

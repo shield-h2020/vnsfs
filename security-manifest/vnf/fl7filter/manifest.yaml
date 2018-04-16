@@ -1,0 +1,14 @@
+manifest:vnsf:
+    type: OSM
+    package: fl7filter_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: fl7filter_vnf/fl7filter_vnfd.yaml
+    properties:
+        vendor: POLITO
+        capabilities: ["Filter", "L7"]
+    security_info:
+        vdu:
+          - id: fl7filter_vdu
+            hash: <sha256-based hash of the VDU image defined above>
+            attestation:
+                some_key: <TBD - provided by Trust Monitor>
