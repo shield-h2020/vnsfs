@@ -1,6 +1,6 @@
 manifest:vnsf:
     type: OSM
-    package: l3filter_vnf.tar.gz
+    package: fl7filter_vnf.tar.gz
     hash: <sha256-based hash of the .tar.gz package defined above>
     descriptor: fl7filter_vnf/fl7filter_vnfd.yaml
     properties:
