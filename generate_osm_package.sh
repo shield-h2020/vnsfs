@@ -27,7 +27,7 @@ clear
 cd juju-charms
 source juju-env.sh
 cd layers/${v_id}
-charm build
+charm build -l DEBUG
 
 # Place charm into vNSF
 mkdir -p ${v_id_vnfd}/charms
