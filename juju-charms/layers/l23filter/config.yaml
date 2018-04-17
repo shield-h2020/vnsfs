@@ -1,9 +1,5 @@
 options:
-  rest-ip:
+  rest-api-port:
     type: string
     default:
-    description: "The IP of the exposed REST service"
-  rest-port:
-    type: string
-    default:
-    description: "The port of the exposed REST service"
+    description: "The port of the REST service exposed by the vNSF"

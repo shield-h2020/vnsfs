@@ -1,6 +1,6 @@
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: l23filter_vnfd_v1_2
+    -   id: l23filter_vnfd
         name: l23filter_vnfd
         short-name: l23filter
         description: Virtual Firewall implementation using Open Virtual Switch
@@ -73,29 +73,21 @@ vnfd:vnfd-catalog:
                 -   data-type: STRING
                     default-value: pass1234
                     name: ssh-password
-#                -   data-type: STRING
-#                    default-value: 127.0.0.1
-#                    name: rest-ip
-#                    mandatory: true
-##                    read-only: 'true'
                 -   data-type: STRING
                     default-value: 8082
-                    name: rest-port
+                    name: rest-api-port
                     mandatory: true
-#                    read-only: 'true'
             -   name: set-policies
                 parameter:
                 -   data-type: STRING
                     default-value: ""
                     name: policies
-#                    mandatory: true
             -   name: get-policies
             -   name: delete-policy
                 parameter:
                 -   data-type: INTEGER
                     default-value: 1
                     name: policy
-#                    mandatory: true
             -   name: delete-policies
             initial-config-primitive:
             -   name: config
@@ -106,10 +98,10 @@ vnfd:vnfd-catalog:
                     value: root
                 -   name: ssh-password
                     value: pass1234
-#                -   name: rest-ip
-#                    value: 127.0.0.1
-                -   name: rest-port
+                -   name: rest-api-port
                     value: 8082
                 seq: '1'
+            -   name: start
+                seq: '2'
             juju:
                 charm: l23filter

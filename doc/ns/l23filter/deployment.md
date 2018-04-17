@@ -59,7 +59,12 @@ The following steps indicate how to deploy this package.
 ## Configuration
 
 1. Point to the OSM dashboard and access the "Dashboard > Viewport Dashboard (on NS details) > Compute topology" section
-2. Look for the appropriate "vnfr-id" value and save this UID somwehere
-3. Identify the MSPL (middle-level security policy) used by this package
-4. Point to a running vNSFO instance for SHIELD and [send the MSPL](https://github.com/shield-h2020/nfvo/blob/master/README.md#execute-pre-defined-action-from-a-specific-vnsf)
-5. Access "Dashboard > Viewport Dashboard > l23filter > Service Primitive", select the `set-policies` action and look for a change in the status for the latest request
+2. Identify the MSPL (middle-level security policy) used by this package
+3. Point to a running vNSFO instance for SHIELD and [send the MSPL](https://github.com/shield-h2020/nfvo/blob/master/README.md#execute-pre-defined-action-from-a-specific-vnsf)
+4. Access "Dashboard > Viewport Dashboard > l23filter > Service Primitive", select the `set-policies` action and look for a change in the status for the latest request
+
+## Testing
+
+1. Execute the `set-policies` action from the OSM GUI, using the `mspl/vnf/l23filter/sample.mspl` content
+2. Wait for the action to complete (green light)
+3. If successful, get the IP of the deployed VM and verify that the rule is shown in `http://${ip}:8082`
