@@ -1,6 +1,6 @@
 nsd:nsd-catalog:
     nsd:
-    -   id: l23filter_nsd_v1_2
+    -   id: l23filter_nsd
         name: l23filter_nsd
         short-name: l23filter_nsd
         description: Network service descriptor to instantiate l23filter VNF
@@ -16,9 +16,7 @@ nsd:nsd-catalog:
             # vnfd-id-ref is the id of the VNFD
             # Multiple constituent VNFDs can be specified
         -   member-vnf-index: 1
-            vnfd-id-ref: l23filter_vnfd_v1_2
-
-
+            vnfd-id-ref: l23filter_vnfd
 
         vld:
         # Networks for the VNFs
@@ -34,29 +32,21 @@ nsd:nsd-catalog:
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: l23filter_vnfd_v1_2
+                    nsd:vnfd-id-ref: l23filter_vnfd
                     nsd:vnfd-connection-point-ref: eth0
             -   id: l23filter_nsd_vld2
                 name: l23filter_nsd_vld2
                 short-name: l23filter_nsd_vld2
                 type: ELAN
                 vnfd-connection-point-ref:
-                # Specify the constituent VNFs
-                # member-vnf-index-ref - entry from constituent vnf
-                # vnfd-id-ref - VNFD id
-                # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: l23filter_vnfd_v1_2
+                    nsd:vnfd-id-ref: l23filter_vnfd
                     nsd:vnfd-connection-point-ref: eth1
             -   id: l23filter_nsd_vld3
                 name: l23filter_nsd_vld3
                 short-name: l23filter_nsd_vld3
                 type: ELAN
                 vnfd-connection-point-ref:
-                # Specify the constituent VNFs
-                # member-vnf-index-ref - entry from constituent vnf
-                # vnfd-id-ref - VNFD id
-                # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: l23filter_vnfd_v1_2
+                    nsd:vnfd-id-ref: l23filter_vnfd
                     nsd:vnfd-connection-point-ref: eth2
