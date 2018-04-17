@@ -23,8 +23,8 @@ import sys
 # )
 
 cfg = config()
-rest_ip = cfg.get("ssh-hostname")
-rest_port = cfg.get("rest-port")
+rest_api_hostname = cfg.get("ssh-hostname")
+rest_api_port = cfg.get("rest-api-port")
 status_file = "l23filter_status.log"
 policies_file = "policies"
 
@@ -169,22 +169,28 @@ def curl_call(action_name, path, method, headers={}, data=""):
     try:
         import requests
         resp = None
-        curl_url = "http://{}:{}{}".format(rest_ip, rest_port, path)
+        curl_url = "http://{}:{}{}".format(
+                rest_api_hostname,
+                rest_api_port,
+                path)
         request_method = getattr(requests, method.lower())
-        resp = request_method(curl_url,
-                              headers=headers,
-                              data=data,
-                              verify=False)
+        resp = request_method(
+                curl_url,
+                headers=headers,
+                data=data,
+                verify=False)
         result = resp.text
     except Exception as e:
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        action_fail(
-            "command failed: {}, endpoint: {}:{}, filename: {}, line: {}"
-            .format(e, rest_ip, rest_port, fname, exc_tb.tb_lineno))
+        action_fail("command failed: {}, endpoint: {}:{}, filename: {}, \
+                line: {}".format(e,
+                    rest_api_hostname,
+                    rest_api_port,
+                    fname,
+                    exc_tb.tb_lineno))
     else:
-        action_set({"stdout": result,
-                    "errors": e})
+        action_set({"stdout": result})
     finally:
         remove_flag(action_name)
 
