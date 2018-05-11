@@ -38,7 +38,7 @@ def not_configured():
     config_changed()
 
 
-@when('config.changed')
+@when('config.changed', 'sshproxy.configured')
 def config_changed():
     try:
         status_set('maintenance', 'Verifying configuration data...')
@@ -163,8 +163,8 @@ def ssh_call(action_name, cmd):
     try:
         result, err = charms.sshproxy._run(cmd)
     except Exception as e:
-        print("ssh_call: " + e.output)
-        action_fail("command failed: {}, errors: {}".format(e, e.output))
+        print("ssh_call: " + str(e))
+        action_fail("command failed: {}, errors: {}".format(e, str(e)))
     else:
         action_set({"stdout": result,
                     "errors": err})
@@ -177,7 +177,7 @@ def ssh_curl_call(arg_list):
         try:
             curl_call(*args)
         except Exception as e:
-            action_set({"stdout": e.output})
+            action_set({"stdout": str(e)})
 
 
 def curl_call(action_name, path, method, headers={}, data=""):
