@@ -39,8 +39,11 @@ The high-level layout and a brief description is provided below.
 |   +-- vnf
 |       +-- ${pkg_name}
 +-- src                          # <-- vNSF source code: internal logic
-    +-- vnf
-        +-- ${pkg_name}
+|   +-- vnf
+|       +-- ${pkg_name}
++-- tools                        # <-- Tools based on releases
+    +-- r2 
+    +-- r4
 ```
 
 ## Preparing the OSM package
