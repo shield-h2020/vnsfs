@@ -39,8 +39,11 @@ The high-level layout and a brief description is provided below.
 |   +-- vnf
 |       +-- ${pkg_name}
 +-- src                          # <-- vNSF source code: internal logic
-    +-- vnf
-        +-- ${pkg_name}
+|   +-- vnf
+|       +-- ${pkg_name}
++-- tools                        # <-- Tools based on releases
+    +-- r2 
+    +-- r4
 ```
 
 ## Preparing the OSM package
@@ -188,10 +191,10 @@ Specific scripts will be provided in time to generate this kind of package.
   ...
   ```
 
-2. Run the generation script, using the absolute path to the (vNSF and NS) package as argument:
+2. Run the generation script, using the absolute path to the (vNSF and NS) package and the OSM release (numeric) as argument:
 
   ```
-  sudo ./generate_shield_package.sh ${path_to_package}
+  sudo ./generate_shield_package.sh ${path_to_package} ${release_number}
   ```
 
   The script will fetch the OSM package, compute its SHA-256 hash and insert it into the `manifest.yml` (security manifest), then generate the SHIELD package.

@@ -1,0 +1,39 @@
+nsd-catalog:
+    nsd:
+    -   constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: l23filter_vnfd
+        description: Network service descriptor to instantiate l23filter VNF
+        id: l23filter_nsd
+        logo: l23filter.png
+        name: l23filter_nsd
+        short-name: l23filter_nsd
+        vendor: NCSRD
+        version: '1.2'
+        vld:
+        -   id: l23filter_nsd_vld1
+            mgmt-network: 'true'
+            name: l23filter_nsd_vld1
+            short-name: l23filter_nsd_vld1
+            type: ELAN
+            vim-network-name: provider
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth0
+                vnfd-id-ref: l23filter_vnfd
+        -   id: l23filter_nsd_vld2
+            name: l23filter_nsd_vld2
+            short-name: l23filter_nsd_vld2
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth1
+                vnfd-id-ref: l23filter_vnfd
+        -   id: l23filter_nsd_vld3
+            name: l23filter_nsd_vld3
+            short-name: l23filter_nsd_vld3
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth2
+                vnfd-id-ref: l23filter_vnfd
