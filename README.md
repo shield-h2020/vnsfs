@@ -119,10 +119,10 @@ ${pkg_name}/
 ...
 ```
 
-6. Run the generation script, using the package name as argument:
+6. Run the generation script, using the package name and the OSM release (numeric) as arguments:
 
   ```
-sudo ./generate_osm_package.sh ${pkg_name}
+sudo ./generate_osm_package.sh ${pkg_name} ${release_number}
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
@@ -191,10 +191,10 @@ Specific scripts will be provided in time to generate this kind of package.
   ...
   ```
 
-2. Run the generation script, using the absolute path to the (vNSF and NS) package and the OSM release (numeric) as argument:
+2. Run the generation script, using the absolute path to the (vNSF and NS) package as argument:
 
   ```
-  sudo ./generate_shield_package.sh ${path_to_package} ${release_number}
+  sudo ./generate_shield_package.sh ${path_to_package}
   ```
 
   The script will fetch the OSM package, compute its SHA-256 hash and insert it into the `manifest.yml` (security manifest), then generate the SHIELD package.
