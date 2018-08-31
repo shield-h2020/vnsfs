@@ -1,0 +1,143 @@
+swagger: '2.0'
+info:
+  description: >-
+    The VNSF Proxy exposes an API to interact with the instance.
+    The endpoints allow to set, get or delete policies and URLs.
+  version: 1.0.0
+  title: VNSF Proxy API
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: vnsf-proxy
+basePath: /
+schemes:
+  - http
+paths:
+  /start:
+    get:
+      summary: Starts the man in the middle proxy.
+      description: ''
+      operationId: start
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+  /stop:
+    get:
+      summary: Stops the man in the middle proxy.
+      description: ''
+      operationId: stop
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+  /get-policies:
+      get:
+        summary:  Get the MSPL policies.
+        description: ''
+        operationId: getPolicies
+        produces:
+          - application/json
+        responses:
+          '200':
+            description: Succesful result.
+  /set-policies:
+    post:
+      summary: Set the MSPL policies.
+      description: ''
+      operationId: setPolicies
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: data
+          type: string
+          description: >-
+            `<mspl-set>` object containing the ruleset of filtering rules in
+            MSPL format.
+          required: true
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
+  /delete-policy:
+    post:
+      summary: Delete a specific MSPL policy.
+      description: ''
+      operationId: deletePolicy
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: data
+          type: string
+          description: >-
+            `<mspl-set>` object containing the ruleset of filtering rules in
+            MSPL format.
+          required: true
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
+  /delete-policies:
+    get:
+      summary: deletePolicies.
+      description: ''
+      operationId: delete-policies
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Succesful result.
+  /add-url:
+    post:
+      summary: Adds any number of URLs to the alert/monitor list.
+      description: ''
+      operationId: addUrl
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: data
+          type: string
+          description: >-
+            `<mspl-set>` object containing the ruleset of filtering rules in
+            MSPL format.
+          required: true
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
+  /delete-url:
+    post:
+      summary: Deletes any number of URLs in alert/monitor list.
+      description: ''
+      operationId: deleteUrl
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: data
+          type: string
+          description: >-
+            `<mspl-set>` object containing the ruleset of filtering rules in
+            MSPL format.
+          required: true
+      responses:
+        '200':
+          description: Succesful result.
+        '405':
+          description: Wrong input.
