@@ -72,10 +72,10 @@ def invalid_credentials():
 @when('l3filter.configured')
 @when('actions.start')
 def start():
-    cmd = "sudo PATH=$PATH XTABLES_LIBDIR=/lib/xtables/ \
-        nohup utils/run.py >/dev/null 2>&1 & \
+    cmd = "sudo PATH=$PATH XTABLES_LIBDIR=/lib/xtables/; \
         while ! timeout 1 bash -c 'echo > /dev/tcp/localhost/" + rest_api_port\
-        + "'; do sleep 1; done ; touch ~/" + status_file \
+        + "'; do sudo nohup utils/run.py >/dev/null 2>&1 & sleep 3; done \
+        ; touch ~/" + status_file \
         + "; echo '" + log_action("start") + "' >> ~/" + status_file
     print("start: " + cmd)
     ssh_call("actions.start", cmd)
@@ -97,11 +97,10 @@ def restart():
     cmd = "touch ~/" + status_file + "; echo \"" + log_action("restart") \
             + "\" >> ~/" + status_file \
             + "; sudo kill $( sudo lsof -i:" + rest_api_port + " -t )" \
-            + "; sudo PATH=$PATH XTABLES_LIBDIR=/lib/xtables/ \
-            nohup utils/run.py >/dev/null 2>&1 & \
+            + "; sudo PATH=$PATH XTABLES_LIBDIR=/lib/xtables/; \
             while ! timeout 1 bash -c 'echo > /dev/tcp/localhost/" \
             + rest_api_port\
-            + "'; do sleep 1; done"
+            + "'; do sudo nohup utils/run.py >/dev/null 2>&1 & sleep 3; done"
     print("restart: " + cmd)
     ssh_call("actions.restart", cmd)
 
