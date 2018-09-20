@@ -30,10 +30,10 @@ rest_api_hostname = cfg.get("ssh-hostname")
 rest_api_port = 8080
 #rest_api_hostname = "0.0.0.0"
 #rest_api_port = cfg.get("rest-api-port")
-#status_file = "proxycharm_status.log"
+#status_file = "proxytls_status.log"
 
 
-@when_not('proxycharm.configured')
+@when_not('proxytls.configured')
 def not_configured():
     """Check the current configuration.
 
@@ -64,7 +64,7 @@ def config_changed():
             return
 
         run_api()
-        set_flag("proxycharm.configured")
+        set_flag("proxytls.configured")
         status_set("active","ready!")
 
         return
@@ -89,7 +89,7 @@ def run_api():
 #"sudo fuser -k 8080/tcp"
 
 
-@when('proxycharm.configured')
+@when('proxytls.configured')
 @when('actions.start')
 def start():
     cmd = "sudo systemctl start restful.service"
@@ -98,7 +98,7 @@ def start():
     log("Proxy started")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.stop")
 def stop():
     cmd = "sudo systemctl stop restful.service"
@@ -107,7 +107,7 @@ def stop():
     log("Proxy stopped")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.restart")
 def restart():
     cmd = "sudo systemctl restart restful.service"
@@ -116,28 +116,28 @@ def restart():
     log("Proxy restarted")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.start-proxy")
 def start_proxy():
     args = [("actions.start-proxy","/start","GET")]
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.stop-proxy")
 def stop_proxy():
     args = [("actions.stop-proxy","/stop","GET")]
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.restart-proxy")
 def restart_proxy():
     args = [("actions.restart-proxy","/restart","GET")]
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.start-collector")
 def start_collector():
     cmd = "sudo systemctl start collector.service"
@@ -146,7 +146,7 @@ def start_collector():
     log("Collector started")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.stop-collector")
 def stop_collector():
     cmd = "sudo systemctl stop collector.service"
@@ -155,7 +155,7 @@ def stop_collector():
     log("Collector stopped")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.restart-collector")
 def restart_collector():
     cmd = "sudo systemctl restart collector.service"
@@ -164,14 +164,14 @@ def restart_collector():
     log("Collector restarted")
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.get-policies")
 def get_policies():
     args = [("actions.get-policies","/get-policies","GET")]
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.set-policies")
 def set_policies():
     policies = action_get("policies")
@@ -181,14 +181,14 @@ def set_policies():
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.delete-policies")
 def delete_policies():
     args = [("actions.delete-policies","/delete-policies","GET")]
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.delete-policy")
 def delete_policy():
     policy = action_get("policy")
@@ -198,7 +198,7 @@ def delete_policy():
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.add-url")
 def add_url():
     url = action_get("url")
@@ -208,7 +208,7 @@ def add_url():
     ssh_curl_call(args)
 
 
-@when("proxycharm.configured")
+@when("proxytls.configured")
 @when("actions.delete-url")
 def delete_url():
     url = action_get("url")

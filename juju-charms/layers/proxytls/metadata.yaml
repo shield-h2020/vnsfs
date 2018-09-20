@@ -1,5 +1,5 @@
-name: proxycharm
-summary: Charm for vnsf-proxy
+name: proxytls
+summary: Charm for ProxyTLS
 maintainer: TID
 description: |
   <Multi-line description here>

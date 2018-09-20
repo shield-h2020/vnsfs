@@ -17,11 +17,11 @@ cd juju-charms
 # Setup environment variables
 source juju-env.sh
 
-cd layers/proxycharm
+cd layers/proxytls
 charm build
 
 # Examine the built charm
-cd ../../builds/proxycharm
+cd ../../builds/proxytls
 ls
 actions       config.yaml  icon.svg    metadata.yaml     tests
 actions.yaml  copyright    layer.yaml  reactive          tox.ini
@@ -30,7 +30,7 @@ builds        hooks        Makefile    requirements.txt
 
 ```
 
-The `charm build` process combines this `proxycharm` layer with each layer that it
+The `charm build` process combines this `proxytls` layer with each layer that it
 has included in the `metadata.yaml` file, along with their various dependencies.
 
 This built charm is what will then be used by the SO to communicate with the
@@ -38,7 +38,7 @@ VNF.
 
 # Configuration
 
-The `proxycharm` charm has several configuration properties that can be set via
+The `proxytls` charm has several configuration properties that can be set via
 the SO:
 
 - ssh-hostname
@@ -56,11 +56,11 @@ Once those values are set, the `sshproxy.configured` state flag will be toggled.
 The layers will set the following states:
 
 - `sshproxy.configured` This state is set when SSH credentials have been supplied to the charm.
-- `proxycharm.configured` This state is set after verifying the ssh credentials and running the API that will manage the actions called to the charm.
+- `proxytls.configured` This state is set after verifying the ssh credentials and running the API that will manage the actions called to the charm.
 
 # Actions
 
-In `reactive/proxycharm.py`, you can add more logic to execute commands over SSH. The actual proxycharm has the following actions:
+In `reactive/proxytls.py`, you can add more logic to execute commands over SSH. The actual proxytls has the following actions:
 
 -	`get-policies` -> Get the MSPL policies.
 -	`set-policies` -> Set the MSPL policies.
