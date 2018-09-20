@@ -1,11 +1,13 @@
 nsd:nsd-catalog:
     nsd:
-    -   id: vnsf-proxy-noclient-ns
-        name: vnsf-proxy-noclient-ns
-        short-name: vnsf-proxy-noclient-ns
+    -   id: proxytls_nsd
+        vendor: TID
+        name: proxytls_nsd
+        short-name: proxytls_nsd
+        description: ProxyTLS implementation of the mcTLS concept
         version: '1.0'
         constituent-vnfd:
-        -   vnfd-id-ref: proxy-vnf
+        -   vnfd-id-ref: proxytls_vnfd
             member-vnf-index: '1'
             start-by-default: 'true'
         vld:
@@ -14,9 +16,9 @@ nsd:nsd-catalog:
             short-name: vld-1
             type: ELAN
             mgmt-network: 'true'
-            vim-network-name: external_network
+            vim-network-name: provider
             vnfd-connection-point-ref:
-            -   vnfd-id-ref: proxy-vnf
+            -   vnfd-id-ref: proxytls_vnfd
                 member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: eth2
         -   id: vld-2
@@ -25,7 +27,7 @@ nsd:nsd-catalog:
             type: ELAN
             mgmt-network: 'false'
             vnfd-connection-point-ref:
-            -   vnfd-id-ref: proxy-vnf
+            -   vnfd-id-ref: proxytls_vnfd
                 member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: eth0
         -   id: vld-3
@@ -33,8 +35,8 @@ nsd:nsd-catalog:
             short-name: vld-3
             type: ELAN
             mgmt-network: 'false'
-            vim-network-name: external_network2
+            vim-network-name: provider
             vnfd-connection-point-ref:
-            -   vnfd-id-ref: proxy-vnf
+            -   vnfd-id-ref: proxytls_vnfd
                 member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: eth1

@@ -1,0 +1,7 @@
+manifest:ns:
+    type: OSM
+    package: proxytls_ns.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: proxytls_ns/proxytls_nsd.yaml
+    properties:
+        capabilities: ["Proxy", "TLS"]

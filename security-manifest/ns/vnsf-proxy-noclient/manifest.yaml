@@ -1,7 +1,0 @@
-manifest:ns:
-    type: OSM
-    package: l23filter_ns.tar.gz
-    hash: <sha256-based hash of the .tar.gz package defined above>
-    descriptor: l23filter_ns/l23filter_nsd.yaml
-    properties:
-        capabilities: ["Filter", "L2", "L3"]
