@@ -1,8 +1,10 @@
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: proxy-vnf
-        name: proxy-vnf
-        short-name: proxy-vnf
+    -   id: proxytls_vnfd
+        description: ProxyTLS implementation of the mcTLS concept
+        name: proxytls_vnfd
+        short-name: proxytls
+        vendor: TID
         version: '1.0'
         connection-point:
         -   name: eth0
@@ -17,7 +19,7 @@ vnfd:vnfd-catalog:
         vdu:
         -   id: vdu-1
             name: vdu-1
-            image: vnsf-proxy
+            image: proxytls
             count: '1'
             vm-flavor:
                 vcpu-count: '2'

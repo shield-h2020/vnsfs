@@ -81,6 +81,8 @@ ${pkg_name}_${pkg_type}/
 ...
 ```
 
+  Note: the descriptors must provide lowercase ID fo the NS and vNSF and reference the "provider" network for the VLDs.
+
 4. Define the structure for the Juju charms used by your vNSF package
 
   ```
@@ -198,5 +200,5 @@ Specific scripts will be provided in time to generate this kind of package.
   ```
 
   The script will fetch the OSM package, compute its SHA-256 hash and insert it into the `manifest.yml` (security manifest), then generate the SHIELD package.
-  Note: for the vNSF package, extra hashes or keys may be needed for attestation purposes. Manually modify these beforehand, in the `security-manifest` directory.
+  Note: for the vNSF package, extra hashes or keys may be needed for attestation purposes. Modify these manually beforehand, in the `security-manifest` directory or in the compressed .tar.gz file.
 
