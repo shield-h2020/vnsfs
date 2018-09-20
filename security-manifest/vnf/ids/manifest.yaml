@@ -1,0 +1,14 @@
+manifest:vnsf:
+    type: OSM
+    package: ids_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: ids_vnf/ids_vnfd.yaml
+    properties:
+        vendor: NCSRD
+        capabilities: ["Intrusion", "Detection"]
+    security_info:
+        vdu:
+          - id: ids_vdu
+            hash: <sha256-based hash of the VDU image defined above>
+            attestation:
+                some_key: <TBD - provided by Trust Monitor>
