@@ -1,0 +1,29 @@
+nsd-catalog:
+    nsd:
+    -   constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: ids_vnfd
+        description: Network service descriptor to instantiate ids VNF
+        id: ids_nsd
+        logo: osm_2x.png
+        name: ids_nsd
+        short-name: ids_nsd
+        vendor: NCSRD
+        version: '1.0'
+        vld:
+        -   id: ids_nsd_vld1
+            name: ids_nsd_vld1
+            short-name: ids_nsd_vld1
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth0
+                vnfd-id-ref: ids_vnfd
+        -   id: ids_nsd_vld2
+            name: ids_nsd_vld2
+            short-name: ids_nsd_vld2
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth1
+                vnfd-id-ref: ids_vnfd

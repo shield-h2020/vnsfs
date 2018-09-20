@@ -1,9 +1,9 @@
 nsd:nsd-catalog:
     nsd:
-    -   id: vIDS_nsd_v1_0
-        name: vIDS_nsd
-        short-name: vIDS_nsd
-        description: Network service descriptor to instantiate vIDS VNF
+    -   id: ids_nsd
+        name: ids_nsd
+        short-name: ids_nsd
+        description: Network service descriptor to instantiate ids VNF
         vendor: NCSRD
         version: '1.0'
 
@@ -16,13 +16,13 @@ nsd:nsd-catalog:
             # vnfd-id-ref is the id of the VNFD
             # Multiple constituent VNFDs can be specified
         -   member-vnf-index: 1
-            vnfd-id-ref: vIDS_vnfd_v1_0
+            vnfd-id-ref: ids_vnfd
 
         vld:
         # Networks for the VNFs
-            -   id: vIDS_nsd_vld1
-                name: vIDS_nsd_vld1
-                short-name: vIDS_nsd_vld1
+            -   id: ids_nsd_vld1
+                name: ids_nsd_vld1
+                short-name: ids_nsd_vld1
                 type: ELAN
                 vnfd-connection-point-ref:
                 # Specify the constituent VNFs
@@ -30,11 +30,11 @@ nsd:nsd-catalog:
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: vIDS_vnfd_v1_0
+                    nsd:vnfd-id-ref: ids_vnfd
                     nsd:vnfd-connection-point-ref: eth0
-            -   id: vIDS_nsd_vld2
-                name: vIDS_nsd_vld2
-                short-name: vIDS_nsd_vld2
+            -   id: ids_nsd_vld2
+                name: ids_nsd_vld2
+                short-name: ids_nsd_vld2
                 type: ELAN
                 vnfd-connection-point-ref:
                 # Specify the constituent VNFs
@@ -42,5 +42,5 @@ nsd:nsd-catalog:
                 # vnfd-id-ref - VNFD id
                 # vnfd-connection-point-ref - connection point name in the VNFD
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: vIDS_vnfd_v1_0
+                    nsd:vnfd-id-ref: ids_vnfd
                     nsd:vnfd-connection-point-ref: eth1

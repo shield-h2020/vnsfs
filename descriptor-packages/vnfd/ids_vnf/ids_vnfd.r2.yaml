@@ -1,8 +1,8 @@
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: vIDS_vnfd_v1_0
-        name: vIDS_vnfd
-        short-name: vIDS
+    -   id: ids_vnfd
+        name: ids_vnfd
+        short-name: ids
         description: Virtual IDS implementation using Snort
         vendor: NCSRD
         version: '1.0'
@@ -12,13 +12,13 @@ vnfd:vnfd-catalog:
 
         # Management interface
         mgmt-interface:
-            vdu-id: vIDS_vdu
+            vdu-id: ids_vdu
 
         # Atleast one VDU need to be specified
         vdu:
-        -   id: vIDS_vdu
-            name: vIDS_vdu
-            description: vIDS vdu
+        -   id: ids_vdu
+            name: ids_vdu
+            description: ids vdu
             count: 1
 
             # Flavour of the VM to be instantiated for the VDU
@@ -28,7 +28,7 @@ vnfd:vnfd-catalog:
                 storage-gb: 50
 
             # Image/checksum or image including the full path
-            image: vIDS_v1_0
+            image: ids_v1.0
             #checksum: 
 
             external-interface:

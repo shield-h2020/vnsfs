@@ -33,13 +33,15 @@ clear
 # Build charm
 cd juju-charms
 source juju-env.sh
-cd layers/${v_id}
-charm build -l DEBUG
-
-# Place charm into vNSF
-mkdir -p ${v_id_vnfd}/charms
-cd ../../
-mv builds/${v_id} ${v_id_vnfd}/charms/
+if [ -d layers/${v_id} ]; then
+  cd layers/${v_id}
+  charm build -l DEBUG
+  
+  # Place charm into vNSF
+  mkdir -p ${v_id_vnfd}/charms
+  cd ../../
+  mv builds/${v_id} ${v_id_vnfd}/charms/
+fi
 
 # Generate OSM package for vNSF
 cd ${pkg_tmp}/descriptor-packages/vnfd

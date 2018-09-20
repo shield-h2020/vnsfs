@@ -6,17 +6,17 @@ vnfd-catalog:
         -   name: eth1
             type: VPORT
         description: Virtual IDS implementation using Snort
-        id: vIDS_vnfd_v1_0
+        id: ids_vnfd
         logo: cirros-64.png
         mgmt-interface:
             cp: eth0
-        name: vIDS_vnfd
-        short-name: vIDS
+        name: ids_vnfd
+        short-name: ids
         vdu:
         -   count: 1
-            description: vIDS vdu
-            id: vIDS_vdu
-            image: vIDS_v1_0
+            description: ids vdu
+            id: ids_vdu
+            image: ids_v1.0
             interface:
             -   external-connection-point-ref: eth0
                 name: eth0
@@ -30,7 +30,7 @@ vnfd-catalog:
                 type: EXTERNAL
                 virtual-interface:
                     type: VIRTIO
-            name: vIDS_vdu
+            name: ids_vdu
             vm-flavor:
                 memory-mb: 4096
                 storage-gb: 50
