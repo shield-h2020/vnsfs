@@ -1,0 +1,66 @@
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: httpsanalyzer_vnfd
+        vendor: TID
+        name: httpsanalyzer_vnfd
+        short-name: httpsanalyzer
+        description: Implementation of the HTTPS Analyzer
+        version: '1.0'
+        connection-point:
+        -   name: ens3
+            type: VPORT
+            port-security-enabled: 'true'
+        -   name: ens4
+            type: VPORT
+            port-security-enabled: 'true'
+        vdu:
+        -   id: vdu-1
+            name: vdu-1
+            image: httpsanalyzer
+            count: '1'
+            vm-flavor:
+                vcpu-count: '2'
+                memory-mb: '4096'
+                storage-gb: '20'
+            interface:
+            -   name: ens3
+                type: EXTERNAL
+                virtual-interface:
+                    type: VIRTIO
+                external-connection-point-ref: ens3
+                position: '1'
+            -   name: ens4
+                type: EXTERNAL
+                virtual-interface:
+                    type: VIRTIO
+                external-connection-point-ref: ens4
+                position: '2'
+        vnf-configuration:
+            juju:
+                charm: httpsanalyzer
+            initial-config-primitive:
+            -   seq: '1'
+                name: config
+                parameter:
+                -   name: ssh-hostname
+                    value: <rw_mgmt_ip>
+                -   name: ssh-username
+                    value: cognet
+                -   name: ssh-password
+                    value: supercognet
+            config-primitive:
+            -   name: start-softflowd
+            -   name: stop-softflowd
+            -   name: restart-softflowd
+            -   name: start-analyzer
+            -   name: stop-analyzer
+            -   name: restart-analyzer
+            -   name: forensic-mode
+            -   name: realtime-mode
+            -   name: change-network
+                parameter:
+                -   name: network
+                    data-type: STRING
+                    default-value: ''
+        mgmt-interface:
+            cp: ens3

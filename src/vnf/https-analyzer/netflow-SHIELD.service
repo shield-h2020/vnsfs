@@ -1,0 +1,10 @@
+[Unit]
+Description = Netflow-SHIELD daemon
+
+[Service]
+Type = forking
+ExecStart = /usr/local/bin/netflow-SHIELD.sh start
+ExecStop = /usr/local/bin/netflow-SHIELD.sh stop
+
+[Install]
+WantedBy = multi-user.target

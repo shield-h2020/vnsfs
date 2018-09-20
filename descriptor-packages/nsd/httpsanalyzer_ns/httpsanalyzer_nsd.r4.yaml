@@ -1,0 +1,33 @@
+nsd:nsd-catalog:
+    nsd:
+    -   id: httpsanalyzer_nsd
+        vendor: TID
+        name: httpsanalyzer_nsd
+        short-name: httpsanalyzer_nsd
+        description: Implementation of the HTTPS Analyzer
+        version: '1.0'
+        constituent-vnfd:
+        -   vnfd-id-ref: httpsanalyzer_vnfd
+            member-vnf-index: '1'
+            start-by-default: 'true'
+        vld:
+        -   id: vld-1
+            name: vld-1
+            short-name: vld-1
+            type: ELAN
+            mgmt-network: 'true'
+            vim-network-name: provider
+            vnfd-connection-point-ref:
+            -   vnfd-id-ref: httpsanalyzer_vnfd
+                member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: ens3
+        -   id: vld-2
+            name: vld-2
+            short-name: vld-2
+            type: ELAN
+            mgmt-network: 'false'
+            vim-network-name: provider
+            vnfd-connection-point-ref:
+            -   vnfd-id-ref: httpsanalyzer
+                member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: ens4

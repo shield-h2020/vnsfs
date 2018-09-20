@@ -1,3 +1,18 @@
+#@when_not('httpsanalyzer.installed')
+#def install_httpsanalyzer():
+    # Do your setup here.
+    #
+    # If your charm has other dependencies before it can install,
+    # add those as @when() clauses above., or as additional @when()
+    # decorated handlers below
+    #
+    # See the following for information about reactive charms:
+    #
+    #  * https://jujucharms.com/docs/devel/developer-getting-started
+    #  * https://github.com/juju-solutions/layer-basic#overview
+    #
+#    set_flag('httpsanalyzer.installed')
+
 from charmhelpers.core.hookenv import (
     action_get,
     action_fail,
@@ -27,13 +42,13 @@ import sys
 
 cfg = config()
 rest_api_hostname = cfg.get("ssh-hostname")
-rest_api_port = 8080
+#rest_api_port = 8080
 #rest_api_hostname = "0.0.0.0"
 #rest_api_port = cfg.get("rest-api-port")
-#status_file = "proxycharm_status.log"
+#status_file = "httpsanalyzer_status.log"
 
 
-@when_not('proxycharm.configured')
+@when_not('httpsanalyzer.configured')
 def not_configured():
     """Check the current configuration.
 
@@ -44,13 +59,13 @@ def not_configured():
 
 
 @when('config.changed')
-@when_not('sshproxy.configured')
+@when_not('httpsanalyzer.configured')
 def invalid_credentials():
     status_set('blocked','Waiting for SSH credentials.')
     pass
 
 
-@when('config.changed','sshproxy.configured')
+@when('config.changed','httpsanalyzer.configured')
 def config_changed():
     try:
         status_set('maintenance','Verifying configuration data...')
@@ -63,8 +78,8 @@ def config_changed():
                 format(output))
             return
 
-        run_api()
-        set_flag("proxycharm.configured")
+#        run_api()
+        set_flag("httpsanalyzer.configured")
         status_set("active","ready!")
 
         return
@@ -75,147 +90,109 @@ def config_changed():
             format(err))
 
 
-def run_api():
-    try:
-        log("Starting API")
-        cmd = "sudo systemctl start restful.service"
-        result, err = charms.sshproxy._run(cmd)
-        log("API started")
-    except:
-        action_fail("command failed:" + err)
+#def run_api():
+#    try:
+#        log("Starting API")
+#        cmd = "sudo systemctl start restful.service"
+#        result, err = charms.sshproxy._run(cmd)
+#        log("API started")
+#    except:
+#        action_fail("command failed:" + err)
 
 
-#"python3 /home/vnsf-proxy/secured-psa-reencrypt/PSA/scripts/restful.py &"
+#"python3 /home/cognet/restful.py &"
 #"sudo fuser -k 8080/tcp"
 
 
-@when('proxycharm.configured')
-@when('actions.start')
-def start():
-    cmd = "sudo systemctl start restful.service"
+@when('httpsanalyzer.configured')
+@when("actions.start-softflowd")
+def start_softflowd():
+    cmd = "sudo /etc/init.d/softflowd start"
     print("start: " + cmd)
-    ssh_call("actions.start", cmd)
-    log("Proxy started")
+    ssh_call("actions.start-softflowd", cmd)
+    log("Softflowd started")
 
 
-@when("proxycharm.configured")
-@when("actions.stop")
-def stop():
-    cmd = "sudo systemctl stop restful.service"
+@when('httpsanalyzer.configured')
+@when("actions.stop-softflowd")
+def stop_softflowd():
+    cmd = "sudo /etc/init.d/softflowd stop"
     print("stop: " + cmd)
-    ssh_call("actions.stop", cmd)
-    log("Proxy stopped")
+    ssh_call("actions.stop-softflowd", cmd)
+    log("Softflowd stopped")
 
 
-@when("proxycharm.configured")
-@when("actions.restart")
-def restart():
-    cmd = "sudo systemctl restart restful.service"
+@when('httpsanalyzer.configured')
+@when("actions.restart-softflowd")
+def restart_softflowd():
+    cmd = "sudo /etc/init.d/softflowd restart"
     print("restart: " + cmd)
-    ssh_call("actions.restart", cmd)
-    log("Proxy restarted")
+    ssh_call("actions.restart-softflowd", cmd)
+    log("Softflowd restarted")
 
 
-@when("proxycharm.configured")
-@when("actions.start-proxy")
-def start_proxy():
-    args = [("actions.start-proxy","/start","GET")]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.stop-proxy")
-def stop_proxy():
-    args = [("actions.stop-proxy","/stop","GET")]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.restart-proxy")
-def restart_proxy():
-    args = [("actions.restart-proxy","/restart","GET")]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.start-collector")
-def start_collector():
-    cmd = "sudo systemctl start collector.service"
+@when('httpsanalyzer.configured')
+@when("actions.start-analyzer")
+def start_analyzer():
+    cmd = "sudo systemctl start netflow-SHIELD.service"
     print("start: " + cmd)
-    ssh_call("actions.start-collector", cmd)
-    log("Collector started")
+    ssh_call("actions.start-analyzer", cmd)
+    log("Analyzer started")
 
 
-@when("proxycharm.configured")
-@when("actions.stop-collector")
-def stop_collector():
-    cmd = "sudo systemctl stop collector.service"
+@when('httpsanalyzer.configured')
+@when("actions.stop-analyzer")
+def stop_analyzer():
+    cmd = "sudo systemctl stop netflow-SHIELD.service"
     print("stop: " + cmd)
-    ssh_call("actions.stop-collector", cmd)
-    log("Collector stopped")
+    ssh_call("actions.stop-analyzer", cmd)
+    log("Analyzer stopped")
 
 
-@when("proxycharm.configured")
-@when("actions.restart-collector")
-def restart_collector():
-    cmd = "sudo systemctl restart collector.service"
+@when('httpsanalyzer.configured')
+@when("actions.restart-analyzer")
+def restart_analyzer():
+    cmd = "sudo systemctl restart netflow-SHIELD.service"
     print("restart: " + cmd)
-    ssh_call("actions.restart-collector", cmd)
-    log("Collector restarted")
+    ssh_call("actions.restart-analyzer", cmd)
+    log("Analyzer restarted")
 
 
-@when("proxycharm.configured")
-@when("actions.get-policies")
-def get_policies():
-    args = [("actions.get-policies","/get-policies","GET")]
-    ssh_curl_call(args)
+@when('httpsanalyzer.configured')
+@when("actions.forensic-mode")
+def forensic_mode():
+    cmd = "sudo bash /home/cognet/modify-SHIELD.sh MODE forensic"
+    log(cmd)
+    ssh_call("actions.forensic-mode", cmd)
+    cmd = "sudo systemctl restart netflow-SHIELD.service"
+    log(cmd)
+    ssh_call("actions.forensic-mode", cmd)
+    log("Changed tstat to forensic mode")
 
 
-@when("proxycharm.configured")
-@when("actions.set-policies")
-def set_policies():
-    policies = action_get("policies")
-    #policies_xml = read_policies_content(policies)
-    headers = {"Content-Type":"text/plain"}
-    args = [("actions.set-policies","/set-policies","POST",headers,policies)]
-    ssh_curl_call(args)
+@when('httpsanalyzer.configured')
+@when("actions.realtime-mode")
+def realtime_mode():
+    cmd = "sudo bash /home/cognet/modify-SHIELD.sh MODE realtime"
+    log(cmd)
+    ssh_call("actions.realtime-mode", cmd)
+    cmd = "sudo systemctl restart netflow-SHIELD.service"
+    log(cmd)
+    ssh_call("actions.realtime-mode", cmd)
+    log("Changed tstat to realtime mode")
 
 
-@when("proxycharm.configured")
-@when("actions.delete-policies")
-def delete_policies():
-    args = [("actions.delete-policies","/delete-policies","GET")]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.delete-policy")
-def delete_policy():
-    policy = action_get("policy")
-    #policies_xml = read_policies_content(policy)
-    headers = {"Content-Type":"text/plain"}
-    args = [("actions.delete-policy", "/delete-policy","POST",headers,policy)]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.add-url")
-def add_url():
-    url = action_get("url")
-    #urls_xml = read_policies_content(url)
-    headers = {"Content-Type":"text/plain"}
-    args = [("actions.add-url", "/add-url","POST",headers,url)]
-    ssh_curl_call(args)
-
-
-@when("proxycharm.configured")
-@when("actions.delete-url")
-def delete_url():
-    url = action_get("url")
-    #urls_xml = read_policies_content(url)
-    headers = {"Content-Type":"text/plain"}
-    args = [("actions.delete-url", "/delete-url","POST",headers,url)]
-    ssh_curl_call(args)
+@when('httpsanalyzer.configured')
+@when("actions.change-network")
+def change_network():
+    network = action_get("network")
+    cmd = "sudo bash /home/cognet/modify-SHIELD.sh NETWORK " + network
+    log(cmd)
+    ssh_call("actions.change-network", cmd)
+    cmd = "sudo systemctl restart netflow-SHIELD.service"
+    log(cmd)
+    ssh_call("actions.change-network", cmd)
+    log("Changed the path where the trained network in tstat")
 
 
 #def read_policies_content(policies):

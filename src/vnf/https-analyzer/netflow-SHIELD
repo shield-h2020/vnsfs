@@ -1,0 +1,19 @@
+# Softflowd configuration
+INTERFACE="ens7"
+SOFT_OPTIONS="-n 127.0.0.1:9995 -v 9 -t tcp=60s"
+
+# Nfcapd configuration
+DIR="/var/test_netflow"
+NFCAPD_OPTIONS="-w -T all"
+
+# d-collector configuration for Ingestion stage in Apache-Spot
+INGEST_TOPIC="SPOT-INGEST-TEST-TOPIC"
+TRAFFIC="flow"
+
+# Tstat configuration
+MODE="forensic"
+NETWORK="/home/cognet/tid-rf.pkl"
+
+# Chopper configuration for Machine Learning stage in Apache-Spot
+ML_TOPIC="SPOT-ML-TEST-TOPIC"
+TIME_LIMIT=5

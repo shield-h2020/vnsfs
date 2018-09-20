@@ -1,0 +1,33 @@
+start-softflowd:
+    description: "Starts Softflowd – NetFlow network traffic analyzer."
+
+stop-softflowd:
+    description: "Stops Softflowd – NetFlow network traffic analyzer."
+
+restart-softflowd:
+    description: "Restarts Softflowd – NetFlow network traffic analyzer."
+
+start-analyzer:
+    description: "Starts the https analyzer."
+
+stop-analyzer:
+    description: "Stops the https analyzer."
+
+restart-analyzer:
+    description: "Restarts the https analyzer."
+
+forensic-mode:
+    description: "Changes tstat to realtime mode. It records one entry flow per completed transaction."
+
+realtime-mode:
+    description: "Changes tstat to realtime mode. It records multiple entry flows per only one transaction."
+
+change-network:
+    description: "Changes the path where the trained network for machine learning is placed."
+    params:
+        network:
+            description: "The path of the trained network."
+            type: string
+            default: ""
+    required:
+        - network

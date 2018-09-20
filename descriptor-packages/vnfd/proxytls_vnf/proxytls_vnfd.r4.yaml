@@ -46,7 +46,7 @@ vnfd:vnfd-catalog:
                 position: '3'
         vnf-configuration:
             juju:
-                charm: proxycharm
+                charm: proxytls
             initial-config-primitive:
             -   seq: '1'
                 name: config
