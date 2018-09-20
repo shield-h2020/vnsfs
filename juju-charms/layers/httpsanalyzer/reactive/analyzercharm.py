@@ -1,5 +1,5 @@
-#@when_not('analyzercharm.installed')
-#def install_analyzercharm():
+#@when_not('httpsanalyzer.installed')
+#def install_httpsanalyzer():
     # Do your setup here.
     #
     # If your charm has other dependencies before it can install,
@@ -11,7 +11,7 @@
     #  * https://jujucharms.com/docs/devel/developer-getting-started
     #  * https://github.com/juju-solutions/layer-basic#overview
     #
-#    set_flag('analyzercharm.installed')
+#    set_flag('httpsanalyzer.installed')
 
 from charmhelpers.core.hookenv import (
     action_get,
@@ -45,10 +45,10 @@ rest_api_hostname = cfg.get("ssh-hostname")
 #rest_api_port = 8080
 #rest_api_hostname = "0.0.0.0"
 #rest_api_port = cfg.get("rest-api-port")
-#status_file = "analyzercharm_status.log"
+#status_file = "httpsanalyzer_status.log"
 
 
-@when_not('analyzercharm.configured')
+@when_not('httpsanalyzer.configured')
 def not_configured():
     """Check the current configuration.
 
@@ -59,13 +59,13 @@ def not_configured():
 
 
 @when('config.changed')
-@when_not('analyzercharm.configured')
+@when_not('httpsanalyzer.configured')
 def invalid_credentials():
     status_set('blocked','Waiting for SSH credentials.')
     pass
 
 
-@when('config.changed','analyzercharm.configured')
+@when('config.changed','httpsanalyzer.configured')
 def config_changed():
     try:
         status_set('maintenance','Verifying configuration data...')
@@ -79,7 +79,7 @@ def config_changed():
             return
 
 #        run_api()
-        set_flag("analyzercharm.configured")
+        set_flag("httpsanalyzer.configured")
         status_set("active","ready!")
 
         return
@@ -104,7 +104,7 @@ def config_changed():
 #"sudo fuser -k 8080/tcp"
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.start-softflowd")
 def start_softflowd():
     cmd = "sudo /etc/init.d/softflowd start"
@@ -113,7 +113,7 @@ def start_softflowd():
     log("Softflowd started")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.stop-softflowd")
 def stop_softflowd():
     cmd = "sudo /etc/init.d/softflowd stop"
@@ -122,7 +122,7 @@ def stop_softflowd():
     log("Softflowd stopped")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.restart-softflowd")
 def restart_softflowd():
     cmd = "sudo /etc/init.d/softflowd restart"
@@ -131,7 +131,7 @@ def restart_softflowd():
     log("Softflowd restarted")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.start-analyzer")
 def start_analyzer():
     cmd = "sudo systemctl start netflow-SHIELD.service"
@@ -140,7 +140,7 @@ def start_analyzer():
     log("Analyzer started")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.stop-analyzer")
 def stop_analyzer():
     cmd = "sudo systemctl stop netflow-SHIELD.service"
@@ -149,7 +149,7 @@ def stop_analyzer():
     log("Analyzer stopped")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.restart-analyzer")
 def restart_analyzer():
     cmd = "sudo systemctl restart netflow-SHIELD.service"
@@ -158,7 +158,7 @@ def restart_analyzer():
     log("Analyzer restarted")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.forensic-mode")
 def forensic_mode():
     cmd = "sudo bash /home/cognet/modify-SHIELD.sh MODE forensic"
@@ -170,7 +170,7 @@ def forensic_mode():
     log("Changed tstat to forensic mode")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.realtime-mode")
 def realtime_mode():
     cmd = "sudo bash /home/cognet/modify-SHIELD.sh MODE realtime"
@@ -182,7 +182,7 @@ def realtime_mode():
     log("Changed tstat to realtime mode")
 
 
-@when('analyzercharm.configured')
+@when('httpsanalyzer.configured')
 @when("actions.change-network")
 def change_network():
     network = action_get("network")

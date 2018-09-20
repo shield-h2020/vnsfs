@@ -17,11 +17,11 @@ cd juju-charms
 # Setup environment variables
 source juju-env.sh
 
-cd layers/analyzercharm
+cd layers/httpsanalyzer
 charm build
 
 # Examine the built charm
-cd ../../builds/analyzercharm
+cd ../../builds/httpsanalyzer
 ls
 actions       config.yaml  icon.svg    metadata.yaml     tests
 actions.yaml  copyright    layer.yaml  reactive          tox.ini
@@ -30,7 +30,7 @@ builds        hooks        Makefile    requirements.txt
 
 ```
 
-The `charm build` process combines this `analyzercharm` layer with each layer that it
+The `charm build` process combines this `httpsanalyzer` layer with each layer that it
 has included in the `metadata.yaml` file, along with their various dependencies.
 
 This built charm is what will then be used by the SO to communicate with the
@@ -38,7 +38,7 @@ VNF.
 
 # Configuration
 
-The `analyzercharm` charm has several configuration properties that can be set via
+The `httpsanalyzer` charm has several configuration properties that can be set via
 the SO:
 
 - ssh-hostname
@@ -56,11 +56,11 @@ Once those values are set, the `sshproxy.configured` state flag will be toggled.
 The layers will set the following states:
 
 - `sshproxy.configured` This state is set when SSH credentials have been supplied to the charm.
-- `analyzercharm.configured` This state is set after verifying the ssh credentials.
+- `httpsanalyzer.configured` This state is set after verifying the ssh credentials.
 
 # Actions
 
-In `reactive/analyzercharm.py`, you can add more logic to execute commands over SSH. The actual proxycharm has the following actions:
+In `reactive/httpsanalyzer.py`, you can add more logic to execute commands over SSH. The actual proxycharm has the following actions:
 
 - `start- softflowd` -> Starts Softflowd – NetFlow network traffic analyzer.
 - `stop- softflowd` -> Stops Softflowd – NetFlow network traffic analyzer.

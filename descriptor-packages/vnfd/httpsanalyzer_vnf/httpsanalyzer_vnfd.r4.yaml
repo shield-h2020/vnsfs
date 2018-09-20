@@ -1,8 +1,10 @@
 vnfd:vnfd-catalog:
     vnfd:
-    -   id: https-analyzer-vnf
-        name: https-analyzer-vnf
-        short-name: https-analyzer-vnf
+    -   id: httpsanalyzer_vnfd
+        vendor: TID
+        name: httpsanalyzer_vnfd
+        short-name: httpsanalyzer
+        description: Implementation of the HTTPS Analyzer
         version: '1.0'
         connection-point:
         -   name: ens3
@@ -14,7 +16,7 @@ vnfd:vnfd-catalog:
         vdu:
         -   id: vdu-1
             name: vdu-1
-            image: https-analyzer
+            image: httpsanalyzer
             count: '1'
             vm-flavor:
                 vcpu-count: '2'
@@ -35,7 +37,7 @@ vnfd:vnfd-catalog:
                 position: '2'
         vnf-configuration:
             juju:
-                charm: analyzercharm
+                charm: httpsanalyzer
             initial-config-primitive:
             -   seq: '1'
                 name: config

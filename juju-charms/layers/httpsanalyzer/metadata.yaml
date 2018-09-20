@@ -1,5 +1,5 @@
-name: analyzercharm
-summary: Charm for https analyzer
+name: httpsanalyzer
+summary: Charm for HTTPS Analyzer
 maintainer: TID
 description: |
   <Multi-line description here>
