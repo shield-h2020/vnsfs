@@ -1,0 +1,63 @@
+start-proxy:
+    description: "Starts the man in the middle proxy."
+
+stop-proxy:
+    description: "Stops the man in the middle proxy."
+
+restart-proxy:
+    description: "Restarts the man in the middle proxy."
+
+start-collector:
+    description: "Starts the collector."
+
+stop-collector:
+    description: "Stops the collector."
+
+restart-collector:
+    description: "Restarts the collector."
+
+get-policies:
+    description: "Get the MSPL policies."
+
+set-policies:
+    description: "Set the MSPL policies."
+    params:
+        policies:
+            description: "MSPL data."
+            type: string
+            default: ""
+    required:
+        - policies
+
+delete-policies:
+    description: "Delete all MSPL policies."
+
+delete-policy:
+    description: "Delete a specific MSPL policy."
+    params:
+        policy:
+            description: "URLs."
+            type: string
+            default: ""
+    required:
+        - policy
+
+add-url:
+    description: "Adds any number of URLs to the alert/monitor list."
+    params:
+        url:
+            description: "URLs."
+            type: string
+            default: ""
+    required:
+        - url
+
+delete-url:
+    description: "Deletes any number of URLs to the alert/monitor list."
+    params:
+        url:
+            description: "URLs."
+            type: string
+            default: ""
+    required:
+        - url

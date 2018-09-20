@@ -1,0 +1,14 @@
+manifest:vnsf:
+    type: OSM
+    package: proxytls_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: proxytls_vnf/proxytls_vnfd.yaml
+    properties:
+        vendor: TID
+        capabilities: ["Proxy", "TLS"]
+    security_info:
+        vdu:
+          - id: proxytls
+            hash: <sha256-based hash of the VDU image defined above>
+            attestation:
+                some_key: <TBD - provided by Trust Monitor>
