@@ -33,13 +33,4 @@ The following steps indicate how to deploy this package.
 
 ## Configuration
 
-1. Access "Project > Overview > NS Instances > *vnsf-proxy running instance* > Actions > Exec NS Primitive", write the `set-policies` action, write the VNF Member index and look for a change in the status for the latest request
-
-## Testing
-
-1. Execute the `set-policies` action from the OSM GUI.
-2. Wait for the action to complete.
-3. If successful, verify that the content was added to block and monitor lists.
-4. Execute the `delete-policies` action from the OSM GUI.
-5. Wait for the action to complete.
-6. If successful, the file block and monitor lists would be empty.
+1. Access "Project > Overview > NS Instances > *httpsanalyzer* > Actions > Exec NS Primitive", write the action wanted and write the VNF Member index.
