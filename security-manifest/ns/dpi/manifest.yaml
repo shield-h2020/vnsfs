@@ -1,0 +1,7 @@
+manifest:ns:
+    type: OSM
+    package: dpi_ns.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: dpi_ns/dpi_nsd.yaml
+    properties:
+        capabilities: ["Deep Packet Inspection"]

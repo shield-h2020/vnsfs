@@ -1,0 +1,40 @@
+nsd-catalog:
+    nsd:
+    -   constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: dpi_vnfd
+        description: Virtual Deep Packet Inspection
+            NS
+        id: dpi_nsd
+        logo: dpi.png
+        name: dpi_nsd
+        short-name: dpi_nsd
+        vendor: ORION
+        version: '1.0'
+        vld:
+        -   id: dpi_nsd_vld1
+            mgmt-network: 'true'
+            name: dpi_nsd_vld1
+            short-name: dpi_nsd_vld1
+            type: ELAN
+            vim-network-name: provider
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth0
+                vnfd-id-ref: dpi_vnfd
+        -   id: dpi_nsd_vld2
+            name: dpi_nsd_vld2
+            short-name: dpi_nsd_vld2
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth1
+                vnfd-id-ref: dpi_vnfd
+        -   id: dpi_nsd_vld3
+            name: dpi_nsd_vld3
+            short-name: dpi_nsd_vld3
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth2
+                vnfd-id-ref: dpi_vnfd

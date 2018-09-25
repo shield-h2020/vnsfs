@@ -1,0 +1,116 @@
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: dpi_vnfd
+        name: dpi_vnfd
+        short-name: dpi
+        description: Virtual Deep Packet Inspection
+        vendor: ORION
+        version: '1.0'
+
+        # Place the logo as png in icons directory and provide the name here
+        logo: dpi.png
+
+        # Management interface
+        mgmt-interface:
+            vdu-id: vdpi
+
+        # Atleast one VDU need to be specified
+        vdu:
+        -   id: vdpi
+            name: vdpi
+            description: dpi vdu
+            count: 1
+
+            # Flavour of the VM to be instantiated for the VDU
+            vm-flavor:
+                vcpu-count: 2
+                memory-mb: 4096
+                storage-gb: 40
+
+            # Image/checksum or image including the full path
+            image: vDPI
+            #checksum: 
+
+            external-interface:
+            # Specify the external interfaces
+            # There can be multiple interfaces defined
+            -   name: eth0
+                virtual-interface:
+                    type: OM-MGMT
+                vnfd-connection-point-ref: eth0
+            -   name: eth1
+                virtual-interface:
+                    type: VIRTIO
+                vnfd-connection-point-ref: eth1
+            -   name: eth2
+                virtual-interface:
+                    type: VIRTIO
+                vnfd-connection-point-ref: eth2
+
+        connection-point:
+            -   name: eth0
+                type: VPORT
+            -   name: eth1
+                type: VPORT
+            -   name: eth2
+                type: VPORT
+
+        vnf-configuration:
+            config-attributes:
+                config-delay: 1
+            service-primitive:
+            -   name: start
+            -   name: stop
+            -   name: restart
+            -   name: config
+                parameter:
+                -   data-type: STRING
+                    default-value: <rw_mgmt_ip>
+                    name: ssh-hostname
+                -   data-type: STRING
+                    default-value: ubuntu
+                    name: ssh-username
+                -   data-type: STRING
+                    default-value: randompassword
+                    name: ssh-password
+#                -   data-type: STRING
+#                    default-value: 127.0.0.1
+#                    name: rest-ip
+#                    mandatory: true
+##                    read-only: 'true'
+                -   data-type: STRING
+                    default-value: 8080
+                    name: rest-port
+                    mandatory: true
+#                    read-only: 'true'
+            -   name: set-policies
+                parameter:
+                -   data-type: STRING
+                    default-value: ""
+                    name: policies
+#                    mandatory: true
+            -   name: get-policies
+            -   name: delete-policy
+                parameter:
+                -   data-type: INTEGER
+                    default-value: 1
+                    name: policy
+#                    mandatory: true
+            -   name: delete-policies
+            initial-config-primitive:
+            -   name: config
+                parameter:
+                -   name: ssh-hostname
+                    value: <rw_mgmt_ip>
+                -   name: ssh-username
+                    value: ubuntu
+                -   name: ssh-password
+                    value: randompassword
+#               -   name: rest-ip
+#                    value: 127.0.0.1
+                -   name: rest-port
+                    value: 8080
+                seq: '1'
+            juju:
+                charm: dpi
+

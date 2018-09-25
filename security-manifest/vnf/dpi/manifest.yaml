@@ -1,0 +1,11 @@
+fest:vnsf:
+    type: OSM
+    package: dpi_vnf.tar.gz
+    descriptor: dpi_vnf/dpi_vnfd.yaml
+    properties:
+        vendor: ORION
+        capabilities: ['Virtual Deep Packet Inspection']
+    security_info:
+        vdu:
+          - id: vDPI
+            hash: 3dfea8193ec406ee028d6ecefa3bd424
