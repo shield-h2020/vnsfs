@@ -26,7 +26,6 @@ nsd:nsd-catalog:
             short-name: vld-2
             type: ELAN
             mgmt-network: 'false'
-            vim-network-name: provider
             vnfd-connection-point-ref:
             -   vnfd-id-ref: httpsanalyzer
                 member-vnf-index-ref: '1'

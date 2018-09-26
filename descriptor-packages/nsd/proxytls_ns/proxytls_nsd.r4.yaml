@@ -35,7 +35,6 @@ nsd:nsd-catalog:
             short-name: vld-3
             type: ELAN
             mgmt-network: 'false'
-            vim-network-name: provider
             vnfd-connection-point-ref:
             -   vnfd-id-ref: proxytls_vnfd
                 member-vnf-index-ref: '1'
