@@ -33,13 +33,13 @@ clear
 # Build charm
 cd juju-charms
 source juju-env.sh
-if [ -d layers/${v_id} ]; then
-  cd layers/${v_id}
+if [ -d layers/${v_id}/r${r_no} ]; then
+  cd layers/${v_id}/r${r_no}
   charm build -l DEBUG
   
   # Place charm into vNSF
   mkdir -p ${v_id_vnfd}/charms
-  cd ../../
+  cd ../../../
   mv builds/${v_id} ${v_id_vnfd}/charms/
 fi
 
