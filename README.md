@@ -128,6 +128,7 @@ ${pkg_name}/
 sudo ./generate_osm_package.sh ${pkg_name} ${pkg_type} ${release_number} [${destination_path}]
 # Example:
 # sudo ./generate_osm_package.sh proxytls vnf 4 ~/Downloads/nfvo-packages/r4/
+# sudo ./generate_osm_package.sh httpsanalyzer ns 4 ~/Downloads/nfvo-packages/r4/
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
