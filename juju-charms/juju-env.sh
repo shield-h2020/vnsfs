@@ -3,8 +3,10 @@ source deps.sh
 
 release=$1
 
+juju_charm=$(charm version | head -n 1 | cut -d" " -f2)
+
 # Snap requires confinement on execution into own's home
-if [[ $release -ge 4 ]]; then
+if [[ $release -ge 4 && ${juju_charm} == *"2.3."* ]]; then
   export JUJU_REPOSITORY=$(echo $HOME)/vnsfs
   if [[ -f /bin/charm ]]; then
     sudo cp -p /bin/charm /bin/charm.bak
