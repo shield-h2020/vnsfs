@@ -1,11 +1,11 @@
 vnfd-catalog:
     vnfd:
     -   description: Dummy Docker-based monitoring vNSF
-        id: docker_monitor_vnfd
+        id: dockermonitor_vnfd
         logo: docker-logo.png
         mgmt-interface:
-            vdu-id: docker_monitor_vdu
-        name: docker_monitor_vnfd
+            vdu-id: dockermonitor_vdu
+        name: dockermonitor_vnfd
         connection-point:
         -   name: eth0
             type: VPORT
@@ -15,13 +15,13 @@ vnfd-catalog:
             type: VPORT
 
         service-function-chain: UNAWARE
-        short-name: docker_monitor
+        short-name: dockermonitor
         vdu:
         -   count: '1'
-            description: docker_monitor-VM
+            description: dockermonitor-VM
             guest-epa:
                 cpu-pinning-policy: ANY
-            id: docker_monitor_vdu
+            id: dockermonitor_vdu
             image: centos
             external-interface:
             -   vnfd-connection-point-ref: eth0
@@ -36,7 +36,7 @@ vnfd-catalog:
                 name: eth2
                 virtual-interface:
                     type: VIRTIO
-            name: docker_monitor_vdu
+            name: dockermonitor_vdu
             vm-flavor:
                 memory-mb: '512'
                 storage-gb: '5'

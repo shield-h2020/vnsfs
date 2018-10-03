@@ -2,38 +2,38 @@ nsd-catalog:
     nsd:
     -   constituent-vnfd:
         -   member-vnf-index: 1
-            vnfd-id-ref: docker_monitor_vnfd
+            vnfd-id-ref: dockermonitor_vnfd
         description: Network Service descriptor of a Docker-based monitoring vNSF
-        id: docker_monitor_nsd
+        id: dockermonitor_nsd
         logo: docker-logo.png
-        name: docker_monitor_nsd
-        short-name: docker_monitor_nsd
+        name: dockermonitor_nsd
+        short-name: dockermonitor_nsd
         vendor: POLITO
         version: '1.0'
         vld:
-        -   id: docker_monitor_nsd_vld1
+        -   id: dockermonitor_nsd_vld1
             mgmt-network: 'true'
-            name: docker_monitor_nsd_vld1
-            short-name: docker_monitor_nsd_vld1
+            name: dockermonitor_nsd_vld1
+            short-name: dockermonitor_nsd_vld1
             type: ELAN
             vim-network-name: default
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: 1
                 vnfd-connection-point-ref: eth0
-                vnfd-id-ref: docker_monitor_vnfd
-        -   id: docker_monitor_nsd_vld2
-            name: docker_monitor_nsd_vld2
-            short-name: docker_monitor_nsd_vld2
+                vnfd-id-ref: dockermonitor_vnfd
+        -   id: dockermonitor_nsd_vld2
+            name: dockermonitor_nsd_vld2
+            short-name: dockermonitor_nsd_vld2
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: 1
                 vnfd-connection-point-ref: eth1
-                vnfd-id-ref: docker_monitor_vnfd
-        -   id: docker_monitor_nsd_vld3
-            name: docker_monitor_nsd_vld3
-            short-name: docker_monitor_nsd_vld3
+                vnfd-id-ref: dockermonitor_vnfd
+        -   id: dockermonitor_nsd_vld3
+            name: dockermonitor_nsd_vld3
+            short-name: dockermonitor_nsd_vld3
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: 1
                 vnfd-connection-point-ref: eth2
-                vnfd-id-ref: docker_monitor_vnfd
+                vnfd-id-ref: dockermonitor_vnfd

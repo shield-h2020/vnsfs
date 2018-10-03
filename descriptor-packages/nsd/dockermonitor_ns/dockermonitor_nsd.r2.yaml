@@ -1,39 +1,39 @@
 nsd:nsd-catalog:
     nsd:
-    -   id: docker_monitor_nsd
-        name: docker_monitor_nsd
-        short-name: docker_monitor_nsd
+    -   id: dockermonitor_nsd
+        name: dockermonitor_nsd
+        short-name: dockermonitor_nsd
         description: Network Service descriptor of a Docker-based monitoring vNSF
         vendor: POLITO
         version: '1.0'
         logo: docker-logo.png
         constituent-vnfd:
         -   member-vnf-index: 1
-            vnfd-id-ref: docker_monitor_vnfd
+            vnfd-id-ref: dockermonitor_vnfd
         vld:
-            -   id: docker_monitor_nsd_vld1
-                name: docker_monitor_nsd_vld1
-                short-name: docker_monitor_nsd_vld1
+            -   id: dockermonitor_nsd_vld1
+                name: dockermonitor_nsd_vld1
+                short-name: dockermonitor_nsd_vld1
                 mgmt-network: 'true'
                 type: ELAN
                 vim-network-name: 'default'
                 vnfd-connection-point-ref:
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: docker_monitor_vnfd
+                    nsd:vnfd-id-ref: dockermonitor_vnfd
                     nsd:vnfd-connection-point-ref: eth0
-            -   id: docker_monitor_nsd_vld2
-                name: docker_monitor_nsd_vld2
-                short-name: docker_monitor_nsd_vld2
+            -   id: dockermonitor_nsd_vld2
+                name: dockermonitor_nsd_vld2
+                short-name: dockermonitor_nsd_vld2
                 type: ELAN
                 vnfd-connection-point-ref:
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: docker_monitor_vnfd
+                    nsd:vnfd-id-ref: dockermonitor_vnfd
                     nsd:vnfd-connection-point-ref: eth1
-            -   id: docker_monitor_nsd_vld3
-                name: docker_monitor_nsd_vld3
-                short-name: docker_monitor_nsd_vld3
+            -   id: dockermonitor_nsd_vld3
+                name: dockermonitor_nsd_vld3
+                short-name: dockermonitor_nsd_vld3
                 type: ELAN
                 vnfd-connection-point-ref:
                 -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: docker_monitor_vnfd
+                    nsd:vnfd-id-ref: dockermonitor_vnfd
                     nsd:vnfd-connection-point-ref: eth2
