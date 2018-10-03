@@ -1,0 +1,9 @@
+manifest:vnsf:
+    schema_version: '1.2'
+    type: OSM
+    package: dockerreact_ns.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    descriptor: dockerreact_ns/dockerreact_nsd.yaml
+    properties:
+        vendor: POLITO
+        capabilities: ["react"]

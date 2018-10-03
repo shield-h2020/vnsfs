@@ -8,16 +8,16 @@ vnfd-catalog:
         -   name: eth2
             type: VPORT
         description: Dummy Docker-based monitoring vNSF
-        id: docker_monitor_vnfd
+        id: dockermonitor_vnfd
         logo: docker-logo.png
         mgmt-interface:
             cp: eth0
-        name: docker_monitor_vnfd
-        short-name: docker_monitor
+        name: dockermonitor_vnfd
+        short-name: dockermonitor
         vdu:
         -   count: 1
-            description: docker_monitor vdu
-            id: docker_monitor_vdu
+            description: dockermonitor vdu
+            id: dockermonitor_vdu
             image: centos
             interface:
             -   external-connection-point-ref: eth0
@@ -38,7 +38,7 @@ vnfd-catalog:
                 type: EXTERNAL
                 virtual-interface:
                     type: VIRTIO
-            name: docker_monitor_vdu
+            name: dockermonitor_vdu
             vm-flavor:
                 memory-mb: 512
                 storage-gb: 5

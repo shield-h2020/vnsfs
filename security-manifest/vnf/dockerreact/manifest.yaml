@@ -1,12 +1,12 @@
 manifest:vnsf:
     schema_version: '1.2'
     type: OSM
-    package: docker_react_vnf.tar.gz
+    package: dockerreact_vnf.tar.gz
     hash: <sha256-based hash of the .tar.gz package defined above>
-    descriptor: docker_react_vnf/docker_react_vnfd.yaml
+    descriptor: dockerreact_vnf/dockerreact_vnfd.yaml
     properties:
         vendor: POLITO
-        capabilities: ["React"]
+        capabilities: ["react"]
     security_info:
-        attestation_filename: security/docker_react_vnf
+        attestation_filename: dockerreact_vnf_attestation.json
         hash: <hash of attestation_filename>
