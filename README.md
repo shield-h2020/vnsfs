@@ -17,7 +17,7 @@ The high-level layout and a brief description is provided below.
 
 ```
 .
-+-- descriptor-packages          # <-- NS and vNSF descriptors and static resources
++-- descriptor-packages          # <-- NS and vNSF descriptors and static resources (release-versioned)
 |   +-- nsd
 |   |   +-- ${pkg_name}_ns
 |   +-- vnfd
@@ -27,7 +27,7 @@ The high-level layout and a brief description is provided below.
 |       +-- ${pkg_name}
 |   +-- vnf
 |       +-- ${pkg_name}
-+-- juju-charms                  # <-- vNSF charms (e.g., policy-to-configuration translation)
++-- juju-charms                  # <-- vNSF charms (e.g., policy-to-configuration translation) (release-versioned)
 |   +-- layers
 |       +-- ${pkg_name}
 +-- mspl                         # <-- vNSF sample/s for MSPL (medium-level security policies)
@@ -118,13 +118,17 @@ ${pkg_name}/
 +-- juju-charms                  # <-- Place the vNSF charms here
 |   +-- layers
 |       +-- ${pkg_name}
+|           +-- ${release_number}
 ...
 ```
 
 6. Run the generation script, using the package name and the OSM release (numeric) as arguments:
 
   ```
-sudo ./generate_osm_package.sh ${pkg_name} ${release_number}
+sudo ./generate_osm_package.sh ${pkg_name} ${pkg_type} ${release_number} [${destination_path}]
+# Example:
+# sudo ./generate_osm_package.sh proxytls vnf 4 ~/Downloads/nfvo-packages/r4/
+# sudo ./generate_osm_package.sh httpsanalyzer ns 4 ~/Downloads/nfvo-packages/r4/
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
