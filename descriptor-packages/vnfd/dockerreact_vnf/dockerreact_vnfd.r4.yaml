@@ -8,16 +8,16 @@ vnfd-catalog:
         -   name: eth2
             type: VPORT
         description: Dummy Docker-based reacting vNSF
-        id: docker_react_vnfd
+        id: dockerreact_vnfd
         logo: docker-logo.png
         mgmt-interface:
             cp: eth0
-        name: docker_react_vnfd
-        short-name: docker_react
+        name: dockerreact_vnfd
+        short-name: dockerreact
         vdu:
         -   count: 1
-            description: docker_react vdu
-            id: docker_react_vdu
+            description: dockerreact vdu
+            id: dockerreact_vdu
             image: centos
             interface:
             -   external-connection-point-ref: eth0
@@ -38,7 +38,7 @@ vnfd-catalog:
                 type: EXTERNAL
                 virtual-interface:
                     type: VIRTIO
-            name: docker_react_vdu
+            name: dockerreact_vdu
             vm-flavor:
                 memory-mb: 512
                 storage-gb: 5
