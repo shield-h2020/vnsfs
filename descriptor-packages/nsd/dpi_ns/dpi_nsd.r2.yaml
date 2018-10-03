@@ -1,0 +1,60 @@
+nsd:nsd-catalog:
+    nsd:
+    -   id: dpi_nsd
+        name: dpi_nsd
+        short-name: dpi_nsd
+        description: Virtual Deep Packet Inspection
+        vendor: ORION
+        version: '1.0'
+
+        # Place the logo as png in icons directory and provide the name here
+        logo: dpi.png
+
+        # Specify the VNFDs that are part of this NSD
+        constituent-vnfd:
+            # The member-vnf-index needs to be unique, starting from 1
+            # vnfd-id-ref is the id of the VNFD
+            # Multiple constituent VNFDs can be specified
+        -   member-vnf-index: 1
+            vnfd-id-ref: dpi_vnfd
+        vld:
+        # Networks for the VNFs
+            -   id: dpi_nsd_vld1
+                name: dpi_nsd_vld1
+                short-name: dpi_nsd_vld1
+                type: ELAN
+                mgmt-network: 'true'
+                vim-network-name: 'provider'
+                vnfd-connection-point-ref:
+                # Specify the constituent VNFs
+                # member-vnf-index-ref - entry from constituent vnf
+                # vnfd-id-ref - VNFD id
+                # vnfd-connection-point-ref - connection point name in the VNFD
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: dpi_vnfd
+                    nsd:vnfd-connection-point-ref: eth0
+            -   id: dpi_nsd_vld2
+                name: dpi_nsd_vld2
+                short-name: dpi_nsd_vld2
+                type: ELAN
+                vnfd-connection-point-ref:
+                # Specify the constituent VNFs
+                # member-vnf-index-ref - entry from constituent vnf
+                # vnfd-id-ref - VNFD id
+                # vnfd-connection-point-ref - connection point name in the VNFD
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: dpi_vnfd
+                    nsd:vnfd-connection-point-ref: eth1
+            -   id: dpi_nsd_vld3
+                name: dpi_nsd_vld3
+                short-name: dpi_nsd_vld3
+                type: ELAN
+                vnfd-connection-point-ref:
+                # Specify the constituent VNFs
+                # member-vnf-index-ref - entry from constituent vnf
+                # vnfd-id-ref - VNFD id
+                # vnfd-connection-point-ref - connection point name in the VNFD
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: dpi_vnfd
+                    nsd:vnfd-connection-point-ref: eth2
+
