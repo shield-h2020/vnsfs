@@ -39,7 +39,7 @@ if [[ ${v_type} == "vnf" ]]; then
   source juju-env.sh ${r_no}
   if [[ -d layers/${v_id}/r${r_no} ]]; then
     mkdir -p ${JUJU_REPOSITORY}/${v_id}
-    cp -R layers/${v_id}/r${r_no}/* ${JUJU_REPOSITORY}/${v_id}/
+    cp -Rp layers/${v_id}/r${r_no}/* ${JUJU_REPOSITORY}/${v_id}/
     cd ${JUJU_REPOSITORY}/${v_id}
     charm build -l DEBUG
     
