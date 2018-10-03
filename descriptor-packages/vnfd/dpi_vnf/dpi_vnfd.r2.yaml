@@ -111,6 +111,3 @@ vnfd:vnfd-catalog:
                 -   name: rest-port
                     value: 8080
                 seq: '1'
-            juju:
-                charm: dpi
-

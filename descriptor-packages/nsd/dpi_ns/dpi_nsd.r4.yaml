@@ -3,8 +3,7 @@ nsd-catalog:
     -   constituent-vnfd:
         -   member-vnf-index: 1
             vnfd-id-ref: dpi_vnfd
-        description: Virtual Deep Packet Inspection
-            NS
+        description: Virtual Deep Packet Inspection NS
         id: dpi_nsd
         logo: dpi.png
         name: dpi_nsd

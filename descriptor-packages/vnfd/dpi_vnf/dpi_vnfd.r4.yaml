@@ -7,8 +7,7 @@ vnfd-catalog:
             type: VPORT
         -   name: eth2
             type: VPORT
-        description: Virtual Deep Packet Inspection
-            vNSF
+        description: Virtual Deep Packet Inspection vNSF
         id: dpi_vnfd
         logo: dpi.png
         mgmt-interface:
@@ -90,5 +89,3 @@ vnfd-catalog:
                 -   name: rest-port
                     value: 8080
                 seq: '1'
-            juju:
-                charm: dpi
