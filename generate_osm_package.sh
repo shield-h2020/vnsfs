@@ -40,6 +40,8 @@ if [[ ${v_type} == "vnf" ]]; then
   if [[ -d layers/${v_id}/r${r_no} ]]; then
     mkdir -p ${JUJU_REPOSITORY}/${v_id}
     cp -Rp layers/${v_id}/r${r_no}/* ${JUJU_REPOSITORY}/${v_id}/
+    user_perm=$(basename $HOME)
+    chown ${user_perm}:${user_perm} -R ${JUJU_REPOSITORY}/${v_id}/
     cd ${JUJU_REPOSITORY}/${v_id}
     charm build -l DEBUG
     
@@ -61,7 +63,7 @@ if [[ ${v_type} == "vnf" ]]; then
   mv ${pkg_tmp}/descriptor-packages/vnfd/${v_id}_vnf/*.yaml ${pkg_tmp}/
   [[ -f ${pkg_tmp}/${v_id}_vnfd.r${r_no}.yaml ]] && cp -p ${pkg_tmp}/${v_id}_vnfd.r${r_no}.yaml ${v_id}_vnf/${v_id}_vnfd.yaml
   $PWD/../../tools/r${r_no}/generate_descriptor_pkg.sh -t vnfd ${v_id}_vnf
-  mv ${v_id}_vnf.tar.gz $pkg_dst/
+  sudo mv ${v_id}_vnf.tar.gz $pkg_dst/
 fi
 
 if [[ ${v_type} == "ns" ]]; then
@@ -70,7 +72,7 @@ if [[ ${v_type} == "ns" ]]; then
   mv ${pkg_tmp}/descriptor-packages/nsd/${v_id}_ns/*.yaml ${pkg_tmp}/
   [[ -f ${pkg_tmp}/${v_id}_nsd.r${r_no}.yaml ]] && cp -p ${pkg_tmp}/${v_id}_nsd.r${r_no}.yaml ${v_id}_ns/${v_id}_nsd.yaml
   $PWD/../../tools/r${r_no}/generate_descriptor_pkg.sh -t nsd ${v_id}_ns
-  mv ${v_id}_ns.tar.gz $pkg_dst/
+  sudo mv ${v_id}_ns.tar.gz $pkg_dst/
 fi
 
 rm -rf ${pkg_tmp}/{*.yaml,descriptor-packages,juju-charms,tools}

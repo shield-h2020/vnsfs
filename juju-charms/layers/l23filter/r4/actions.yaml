@@ -1,0 +1,25 @@
+set-policies:
+    description: "Set the MSPL policies."
+    params:
+        policies:
+            description: "MSPL data."
+            type: string
+            default: ""
+    required:
+        - policies
+
+get-policies:
+    description: "Get the MSPL policies."
+
+delete-policy:
+    description: "Delete a specific MSPL policy."
+    params:
+        policy:
+            description: "Policy ID."
+            type: integer
+            default: 1
+    required:
+        - policy
+
+delete-policies:
+    description: "Delete all MSPL policies."
