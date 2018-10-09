@@ -1,11 +1,13 @@
-fest:vnsf:
-    type: OSM
+manifest:vnsf:
+    schema_version: '1.2'
+    type: <package data model format (OSM-R2, OSM-R4, ...)>
     package: dpi_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    hashing_algorithm: SHA_256
     descriptor: dpi_vnf/dpi_vnfd.yaml
     properties:
         vendor: ORION
         capabilities: ['Virtual Deep Packet Inspection']
     security_info:
-        vdu:
-          - id: vDPI
-            hash: 3dfea8193ec406ee028d6ecefa3bd424
+        attestation_filename: dpi_vnf_attestation.json
+        hash: <hash of attestation_filename>

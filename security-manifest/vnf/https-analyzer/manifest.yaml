@@ -1,11 +1,13 @@
 manifest:vnsf:
-    type: OSM
+    schema_version: '1.2'
+    type: <package data model format (OSM-R2, OSM-R4, ...)>
     package: https-analyzer_vnf.tar.gz
     hash: <sha256-based hash of the .tar.gz package defined above>
+    hashing_algorithm: SHA_256
     descriptor: https-analyzer_vnf/https-analyzer_vnfd.yaml
     properties:
         vendor: TELEFONICA
+        capabilities: ["Filter", "L7"]
     security_info:
-        vdu:
-          - id: https-analyzer_vdu
-            hash: <sha256-based hash of the VDU image defined above>
+        attestation_filename: https-analyzer_vnf_attestation.json
+        hash: <hash of attestation_filename>
