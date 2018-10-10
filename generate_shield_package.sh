@@ -65,7 +65,6 @@ gen_target_for_pkg() {
   else
     pkg_target="KVM"
   fi
-  echo "PKG TARGET: $pkg_target"
   sed -i -e "s/target: <instantiation target (KVM, docker, ...)>/target: $pkg_target/g" manifest.yaml
 }
 
@@ -81,7 +80,7 @@ gen_hash_for_att() {
     sha256_att_f=$(sha256sum $att_file)
     sha256_att_f=$(echo $sha256_att_f | awk '{print $1;}')
   fi
-  sed -i -e "s/hash: <hash of attestation_filename>/hash: $sha256_att_f/g" manifest.yaml
+  sed -i -e "s/hash: <sha256-based hash of the .json attestation file defined above>/hash: $sha256_att_f/g" manifest.yaml
 }
 
 # Compute the hash for the VDU

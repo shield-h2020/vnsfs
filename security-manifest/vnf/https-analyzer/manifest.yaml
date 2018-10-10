@@ -6,8 +6,8 @@ manifest:vnsf:
     hashing_algorithm: SHA_256
     descriptor: https-analyzer_vnf/https-analyzer_vnfd.yaml
     properties:
-        vendor: TELEFONICA
+        vendor: TID
         capabilities: ["Filter", "L7"]
     security_info:
         attestation_filename: https-analyzer_vnf_attestation.json
-        hash: <hash of attestation_filename>
+        hash: <sha256-based hash of the .json attestation file defined above>

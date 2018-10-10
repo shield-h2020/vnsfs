@@ -10,4 +10,4 @@ manifest:vnsf:
         capabilities: ["Proxy", "TLS"]
     security_info:
         attestation_filename: proxytls_vnf_attestation.json
-        hash: <hash of attestation_filename>
+        hash: <sha256-based hash of the .json attestation file defined above>

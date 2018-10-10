@@ -10,4 +10,4 @@ manifest:vnsf:
         capabilities: ["Filter", "L2", "L3"]
     security_info:
         attestation_filename: l23filter_vnf_attestation.json
-        hash: <hash of attestation_filename>
+        hash: <sha256-based hash of the .json attestation file defined above>
