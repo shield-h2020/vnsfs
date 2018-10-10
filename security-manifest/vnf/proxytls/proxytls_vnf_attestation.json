@@ -1,0 +1,9 @@
+{
+    "digests":[
+      {
+      "/path/to/file": "digest_of_file",
+      "instance": "vdu_1"
+      }
+    ]
+  }
+  
