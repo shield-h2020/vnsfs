@@ -45,6 +45,8 @@ fi
 
 clear
 
+# Fill in missing fields for manifest
+
 gen_hash_for_pkg() {
   ns_pkg=$(sed -n -e '/package/ s/.*\: *//p' manifest.yaml)
   sha256_p_ns=$(sha256sum $ns_pkg)
@@ -52,14 +54,64 @@ gen_hash_for_pkg() {
   sed -i -e "s/hash: <sha256-based hash of the .tar.gz package defined above>/hash: $sha256_p_ns/g" manifest.yaml
 }
 
-# Fill in missing fields for manifest
-if [[ $p_type == "ns" ]]; then
-  gen_hash_for_pkg
-elif [[ $p_type == "vnf" ]]; then
+gen_version_for_pkg() {
+  osm_release="OSM-R4"
+  sed -i -e "s/type: <package data model format (OSM-R2, OSM-R4, ...)>/type: $osm_release/g" manifest.yaml
+}
+
+gen_target_for_pkg() {
+  if [[ $p_name == *"docker"* ]]; then
+    pkg_target="docker"
+  else
+    pkg_target="KVM"
+  fi
+  echo "PKG TARGET: $pkg_target"
+  sed -i -e "s/target: <instantiation target (KVM, docker, ...)>/target: $pkg_target/g" manifest.yaml
+}
+
+att_file=""
+copy_att_file() {
+  att_file=$(sed -n -e '/attestation_filename/ s/.*\: *//p' manifest.yaml)
+  att_path="${repo_root}/security-manifest/${p_type}/${p_id_s}/${att_file}"
+  cp -p $att_path $pkg_tmp/
+}
+
+gen_hash_for_att() {
+  if [[ ! -z $att_file ]]; then
+    sha256_att_f=$(sha256sum $att_file)
+    sha256_att_f=$(echo $sha256_att_f | awk '{print $1;}')
+  fi
+  sed -i -e "s/hash: <hash of attestation_filename>/hash: $sha256_att_f/g" manifest.yaml
+}
+
+# Compute the hash for the VDU
+if [[ $p_type == "ns" || $p_type == "vnf" ]]; then
   gen_hash_for_pkg
 fi
 
-tar -zcf ${p_id}_shield.tar.gz manifest.yaml $p_name
-rm -rf $p_name manifest.yaml
+# Select the OSM release of the package (default: OSM-R4)
+gen_version_for_pkg
+
+# Fill in missing fields for manifest
+if [[ $p_type == "ns" ]]; then
+  gen_target_for_pkg
+fi
+
+if [[ $p_type == "vnf" ]]; then
+  copy_att_file
+fi
+
+# Compute the hash for the attestation file
+if [[ $p_type == "vnf" ]]; then
+  gen_hash_for_att
+fi
+
+if [[ ! -z $att_file ]]; then
+  tar -zcf ${p_id}_shield.tar.gz manifest.yaml $att_file $p_name
+  rm -rf $p_name $att_file manifest.yaml
+else
+  tar -zcf ${p_id}_shield.tar.gz manifest.yaml $p_name
+  rm -rf $p_name manifest.yaml
+fi
 
 printf "\n\nNote\tSHIELD package for ${p_type} with name=${p_id_s} are available under ${pkg_tmp}\n\n"

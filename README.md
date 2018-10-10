@@ -183,16 +183,16 @@ For certification purposes, the NS and vNSF developer may want to test each pack
 **Work in progress**
 
 A SHIELD package contains some extra meta-data (mostly for security attestation purposes), stored in its security `manifest.yml`.
-Specific scripts will be provided in time to generate this kind of package.
+Also, for a SHIELD package of a vNSF type, it includes attesation data in its `${pkg_name}_vnf_attestation.json` file.
 
-1. Add the SHIELD security manifest for each vNSF and NS in the following folder:
+1. Add the SHIELD security manifest for each vNSF and NS in the following folder, and add the SHIELD attestation file for each vNSF:
 
   ```
   ...
   +-- security-manifest            # <-- NS and vNSF security manifests (used to generate SHIELD package)
   |   +-- ns
   |   |   +-- ${pkg_name}
-  |   +-- vnf
+  |   +-- vnf                      # <-- vNSF attestation file (used to generate SHIELD package)
   |       +-- ${pkg_name}
   ...
   ```
@@ -203,6 +203,6 @@ Specific scripts will be provided in time to generate this kind of package.
   sudo ./generate_shield_package.sh ${path_to_package}
   ```
 
-  The script will fetch the OSM package, compute its SHA-256 hash and insert it into the `manifest.yml` (security manifest), then generate the SHIELD package.
-  Note: for the vNSF package, extra hashes or keys may be needed for attestation purposes. Modify these manually beforehand, in the `security-manifest` directory or in the compressed .tar.gz file.
+  The script will fetch the OSM package and, if needed, associated files; then replace with metadata (type of virtualised NS, SHA-256 hash for diverse resources, etc) and insert it into the `manifest.yml` (security manifest). Finally, it generates the SHIELD package.
+  Note: extra hashes or keys may be needed for attestation purposes. Modify these manually beforehand, in the `security-manifest` directory or in the compressed .tar.gz file.
 
