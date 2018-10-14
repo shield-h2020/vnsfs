@@ -82,6 +82,12 @@ def xml_to_iptables(data):
                 match.connlimit_above = max_connections
                 match.connlimit_mask = "32"
 
+        # If port is wildcard, remove the port matching
+        if xml_sport is not None and xml_sport == '*':
+            xml_sport = None
+        if xml_dport is not None and xml_dport == '*':
+            xml_dport = None
+
         # In case of specified ports:
         if xml_sport is not None or xml_dport is not None:
             if match is None:
