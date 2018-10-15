@@ -1,16 +1,15 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]
+if [ $# -ne 3 ]
   then
     echo "[ERROR] Not enough arguments supplied"
     exit 1
 fi
 
-WAN_INTERFACE=$1
-echo "[DEBUG] WAN interface is $WAN_INTERFACE"
+IN_IFACE=$1
+OUT_IFACE=$2
+BR_NAME=$3
 
-# Default route must be removed before creating a new one
-sudo ip route del default
 sudo iptables -F
 sudo iptables -X
 sudo iptables -t nat -F
@@ -22,16 +21,20 @@ sudo iptables -P FORWARD ACCEPT
 sudo iptables -P OUTPUT ACCEPT
 echo "[DEBUG] Flushed iptables configuration."
 
-wan_subnet=$(ip route | grep $WAN_INTERFACE | awk '{print $1}')
-wan_ip=$(ifconfig $WAN_INTERFACE 2>/dev/null | awk '/inet addr:/ {print $2}'| sed 's/addr://')
-echo "[DEBUG] WAN subnet is $wan_subnet and IP is $wan_ip"
-wan_available_ips=$(nmap -sn $wan_subnet -oG - | awk '$4=="Status:" && $5=="Up" {print $2}')
-for ip in $wan_available_ips
-do
-  if [ $ip != $wan_ip ] && [ $(echo $ip | cut -f 4 -d.) != "1" ]; then
-    wan_next_hop=$ip
-  fi
-done
+# If in_interface and out_interface not configured, do so
+if ! grep -qF "auto $IN_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg && ! grep -qF "auto $OUT_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg &&; then
+  sudo sh -c 'echo "auto $IN_IFACE\niface $IN_IFACE inet dhcp\nauto $OUT_IFACE\niface $OUT_IFACE inet dhcp"  >> /etc/network/interfaces.d/50-cloud-init.cfg'
+  sudo sh -c '/etc/init.d/networking restart'
+  echo "[DEBUG] Copied ingress-egress interface configuration. Network restarted"
+fi
 
-sudo ip route add default via $wan_next_hop dev $WAN_INTERFACE
-echo "[DEBUG] Setted default route via $wan_next_hop for $WAN_INTERFACE"
+# If bridge not existent, create it
+if [ ! -d "/sys/devices/virtual/net/$BR_NAME/" ]; then
+  sudo brctl addbr $BR_NAME
+  sudo brctl addif $BR_NAME $IN_IFACE $OUT_IFACE
+  sudo ifconfig $BR_NAME up
+  echo "[DEBUG] Bridge between ingress-egress interfaces configured and up."
+fi
+
+sudo modprobe br_netfilter
+echo "[DEBUG] Loading kernel module for iptables setting on a bridge."
