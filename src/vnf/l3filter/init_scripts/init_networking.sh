@@ -22,8 +22,8 @@ sudo iptables -P OUTPUT ACCEPT
 echo "[DEBUG] Flushed iptables configuration."
 
 # If in_interface and out_interface not configured, do so
-if ! grep -qF "auto $IN_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg && ! grep -qF "auto $OUT_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg &&; then
-  sudo sh -c 'echo "auto $IN_IFACE\niface $IN_IFACE inet dhcp\nauto $OUT_IFACE\niface $OUT_IFACE inet dhcp"  >> /etc/network/interfaces.d/50-cloud-init.cfg'
+if ! grep -qF "auto $IN_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg && ! grep -qF "auto $OUT_IFACE" /etc/network/interfaces.d/50-cloud-init.cfg; then
+  sudo sh -c "echo 'auto ${IN_IFACE}\niface ${IN_IFACE} inet dhcp\nauto ${OUT_IFACE}\niface ${OUT_IFACE} inet dhcp'  >> /etc/network/interfaces.d/50-cloud-init.cfg"
   sudo sh -c '/etc/init.d/networking restart'
   echo "[DEBUG] Copied ingress-egress interface configuration. Network restarted"
 fi
