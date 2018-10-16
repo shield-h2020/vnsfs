@@ -3,11 +3,11 @@ import json
 from common import settings
 
 
-# The rules should be applied to the vnsf-forward chain of the FILTER table
+# The rules should be applied to the FORWARD built-in chain of the FILTER table
 def get_vnsf_forward_chain():
     table = iptc.Table(iptc.Table.FILTER)
     table.refresh()
-    chain = iptc.Chain(table, settings.vnsf_forward_chain)
+    chain = iptc.Chain(table, "FORWARD")
     return chain
 
 
@@ -33,8 +33,7 @@ def get_iptables_rules():
     chain = get_vnsf_forward_chain()
     iptables_rules = chain.rules
     rules = {}
-    # Exclude RETURN target rule
-    for i in range(len(iptables_rules) - 1):
+    for i in range(len(iptables_rules)):
         rules[i] = get_rule_dict(iptables_rules[i])
     return json.dumps(rules)
 
@@ -55,9 +54,6 @@ def append_iptables_rules(rules):
 
 def delete_iptables_rule_by_id(rule_id):
     chain = get_vnsf_forward_chain()
-    # If the rule is the RETURN target, do not delete it
-    if(rule_id == (len(chain.rules) - 1)):
-        return False
     rule = chain.rules[rule_id]
     rule_dict = get_rule_dict(rule)
     chain.delete_rule(rule)
@@ -67,9 +63,4 @@ def delete_iptables_rule_by_id(rule_id):
 def flush_iptables_rules():
     chain = get_vnsf_forward_chain()
     chain.flush()
-    # Re-add the RETURN target rule
-    rule = iptc.Rule()
-    target = iptc.Target(rule, "RETURN")
-    rule.target = target
-    chain.append_rule(rule)
     return True
