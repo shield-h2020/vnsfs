@@ -27,12 +27,12 @@ def xml_to_iptables(data):
 
         xml_src = getValIfKeyExists(
             xml_data["condition"]["packet-filter-condition"], "source-address")
-        if xml_src is not None:
+        if xml_src is not None and xml_src != "*":
             rule.src = xml_src
         xml_dst = getValIfKeyExists(
             xml_data["condition"]["packet-filter-condition"],
             "destination-address")
-        if xml_dst is not None:
+        if xml_dst is not None and xml_dst != "*":
             rule.dst = xml_dst
         xml_proto = getValIfKeyExists(
             xml_data["condition"]["packet-filter-condition"],
