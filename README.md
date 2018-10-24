@@ -197,10 +197,10 @@ Also, for a SHIELD package of a vNSF type, it includes attesation data in its `$
   ...
   ```
 
-2. Run the generation script, using the absolute path to the (vNSF and NS) package as argument:
+2. Run the generation script, using the absolute path to the (vNSF and NS) package and the OSM release number as arguments:
 
   ```
-  sudo ./generate_shield_package.sh ${path_to_package}
+  sudo ./generate_shield_package.sh ${path_to_package} ${release_number}
   ```
 
   The script will fetch the OSM package and, if needed, associated files; then replace with metadata (type of virtualised NS, SHA-256 hash for diverse resources, etc) and insert it into the `manifest.yml` (security manifest). Finally, it generates the SHIELD package.
