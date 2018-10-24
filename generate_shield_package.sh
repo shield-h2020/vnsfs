@@ -1,6 +1,7 @@
 #!/bin/bash
 
 p_path="$1"
+r_no="$2"
 
 error() {
   printf "Error: $1\n"
@@ -8,6 +9,7 @@ error() {
 }
 
 [[ ! -f $p_path ]] && error "Could not find package in file system"
+[[ -z $r_no ]] && error "The number of the OSM release must be provided"
 
 p_name=$(basename $p_path)
 p_id="${p_name%.tar.gz}"
@@ -55,7 +57,7 @@ gen_hash_for_pkg() {
 }
 
 gen_version_for_pkg() {
-  osm_release="OSM-R4"
+  osm_release="OSM-R${r_no}"
   sed -i -e "s/type: <package data model format (OSM-R2, OSM-R4, ...)>/type: $osm_release/g" manifest.yaml
 }
 

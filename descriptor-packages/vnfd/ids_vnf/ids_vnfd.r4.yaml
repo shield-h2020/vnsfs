@@ -7,14 +7,17 @@ vnfd-catalog:
             type: VPORT
         description: Virtual IDS implementation using Snort
         id: ids_vnfd
-        logo: cirros-64.png
+        logo: ids.png
         mgmt-interface:
             cp: eth0
         name: ids_vnfd
+        service-function-chain: UNAWARE
         short-name: ids
         vdu:
-        -   count: 1
+        -   count: '1'
             description: ids vdu
+            guest-epa:
+                cpu-pinning-policy: ANY
             id: ids_vdu
             image: ids_v1.0
             interface:
@@ -31,9 +34,60 @@ vnfd-catalog:
                 virtual-interface:
                     type: VIRTIO
             name: ids_vdu
+            supplemental-boot-data:
+                boot-data-drive: 'false'
             vm-flavor:
-                memory-mb: 4096
-                storage-gb: 50
-                vcpu-count: 1
+                memory-mb: '4096'
+                storage-gb: '40'
+                vcpu-count: '1'
         vendor: NCSRD
         version: '1.0'
+        vnf-configuration:
+            config-primitive:
+            -   name: start
+            -   name: stop
+            -   name: restart
+            -   name: config
+                parameter:
+                -   data-type: STRING
+                    default-value: <rw_mgmt_ip>
+                    mandatory: 'false'
+                    name: ssh-hostname
+                -   data-type: STRING
+                    default-value: root
+                    mandatory: 'false'
+                    name: ssh-username
+                -   data-type: STRING
+                    default-value: pass1234
+                    mandatory: 'false'
+                    name: ssh-password
+                -   data-type: STRING
+                    default-value: '8083'
+                    mandatory: 'false'
+                    name: rest-port
+            -   name: set-rule
+                parameter:
+                -   data-type: STRING
+                    mandatory: 'false'
+                    name: rule
+            -   name: get-rules
+            -   name: delete-rule
+                parameter:
+                -   data-type: INTEGER
+                    default-value: '1000001'
+                    mandatory: 'false'
+                    name: rule
+            initial-config-primitive:
+            -   name: config
+                parameter:
+                -   name: ssh-hostname
+                    value: <rw_mgmt_ip>
+                -   name: ssh-username
+                    value: root
+                -   name: ssh-password
+                    value: pass1234
+                -   name: rest-port
+                    value: '8083'
+                seq: '1'
+            juju:
+                charm: ids

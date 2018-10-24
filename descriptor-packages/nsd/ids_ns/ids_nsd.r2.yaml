@@ -1,46 +1,34 @@
 nsd:nsd-catalog:
-    nsd:
-    -   id: ids_nsd
-        name: ids_nsd
-        short-name: ids_nsd
-        description: Network service descriptor to instantiate ids VNF
-        vendor: NCSRD
-        version: '1.0'
+    nsd:nsd:
+    -   nsd:constituent-vnfd:
+        -   nsd:member-vnf-index: '1'
+            nsd:start-by-default: 'true'
+            nsd:vnfd-id-ref: ids_vnfd
+        nsd:description: Network service descriptor to instantiate ids VNF
+        nsd:id: ids_nsd
+        nsd:logo: ids.png
+        nsd:name: ids_nsd
+        nsd:short-name: ids_nsd
+        nsd:vendor: NCSRD
+        nsd:version: '1.0'
+        nsd:vld:
+        -   nsd:id: ids_nsd_vld1
+            nsd:mgmt-network: 'true'
+            nsd:name: ids_nsd_vld1
+            nsd:short-name: ids_nsd_vld1
+            nsd:type: ELAN
+            nsd:vim-network-name: provider
+            nsd:vnfd-connection-point-ref:
+            -   nsd:member-vnf-index-ref: '1'
+                nsd:vnfd-connection-point-ref: eth0
+                nsd:vnfd-id-ref: ids_vnfd
+        -   nsd:id: ids_nsd_vld2
+            nsd:mgmt-network: 'false'
+            nsd:name: ids_nsd_vld2
+            nsd:short-name: ids_nsd_vld2
+            nsd:type: ELAN
+            nsd:vnfd-connection-point-ref:
+            -   nsd:member-vnf-index-ref: '1'
+                nsd:vnfd-connection-point-ref: eth1
+                nsd:vnfd-id-ref: ids_vnfd
 
-        # Place the logo as png in icons directory and provide the name here
-        logo: osm_2x.png
-
-        # Specify the VNFDs that are part of this NSD
-        constituent-vnfd:
-            # The member-vnf-index needs to be unique, starting from 1
-            # vnfd-id-ref is the id of the VNFD
-            # Multiple constituent VNFDs can be specified
-        -   member-vnf-index: 1
-            vnfd-id-ref: ids_vnfd
-
-        vld:
-        # Networks for the VNFs
-            -   id: ids_nsd_vld1
-                name: ids_nsd_vld1
-                short-name: ids_nsd_vld1
-                type: ELAN
-                vnfd-connection-point-ref:
-                # Specify the constituent VNFs
-                # member-vnf-index-ref - entry from constituent vnf
-                # vnfd-id-ref - VNFD id
-                # vnfd-connection-point-ref - connection point name in the VNFD
-                -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: ids_vnfd
-                    nsd:vnfd-connection-point-ref: eth0
-            -   id: ids_nsd_vld2
-                name: ids_nsd_vld2
-                short-name: ids_nsd_vld2
-                type: ELAN
-                vnfd-connection-point-ref:
-                # Specify the constituent VNFs
-                # member-vnf-index-ref - entry from constituent vnf
-                # vnfd-id-ref - VNFD id
-                # vnfd-connection-point-ref - connection point name in the VNFD
-                -   nsd:member-vnf-index-ref: 1
-                    nsd:vnfd-id-ref: ids_vnfd
-                    nsd:vnfd-connection-point-ref: eth1

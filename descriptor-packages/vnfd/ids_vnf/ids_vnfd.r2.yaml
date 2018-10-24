@@ -1,52 +1,91 @@
 vnfd:vnfd-catalog:
-    vnfd:
-    -   id: ids_vnfd
-        name: ids_vnfd
-        short-name: ids
-        description: Virtual IDS implementation using Snort
-        vendor: NCSRD
-        version: '1.0'
-
-        # Place the logo as png in icons directory and provide the name here
-        logo: cirros-64.png
-
-        # Management interface
-        mgmt-interface:
-            vdu-id: ids_vdu
-
-        # Atleast one VDU need to be specified
-        vdu:
-        -   id: ids_vdu
-            name: ids_vdu
-            description: ids vdu
-            count: 1
-
-            # Flavour of the VM to be instantiated for the VDU
-            vm-flavor:
-                vcpu-count: 1
-                memory-mb: 4096
-                storage-gb: 50
-
-            # Image/checksum or image including the full path
-            image: ids_v1.0
-            #checksum: 
-
-            external-interface:
-            # Specify the external interfaces
-            # There can be multiple interfaces defined
-            -   name: eth0
-                virtual-interface:
-                    type: OM-MGMT
-                vnfd-connection-point-ref: eth0
-            -   name: eth1
-                virtual-interface:
-                    type: VIRTIO
-                vnfd-connection-point-ref: eth1
-
-
-        connection-point:
-            -   name: eth0
-                type: VPORT
-            -   name: eth1
-                type: VPORT
-
+    vnfd:vnfd:
+    -   vnfd:connection-point:
+        -   vnfd:name: eth0
+            vnfd:type: VPORT
+        -   vnfd:name: eth1
+            vnfd:type: VPORT
+        vnfd:description: Virtual IDS implementation using Snort
+        vnfd:id: ids_vnfd
+        vnfd:logo: ids.png
+        vnfd:mgmt-interface:
+            vnfd:vdu-id: ids_vdu
+        vnfd:name: ids_vnfd
+        vnfd:service-function-chain: UNAWARE
+        vnfd:short-name: ids
+        vnfd:vdu:
+        -   vnfd:count: '1'
+            vnfd:description: ids vdu
+            vnfd:external-interface:
+            -   vnfd:name: eth0
+                vnfd:virtual-interface:
+                    vnfd:type: OM-MGMT
+                vnfd:vnfd-connection-point-ref: eth0
+            -   vnfd:name: eth1
+                vnfd:virtual-interface:
+                    vnfd:type: VIRTIO
+                vnfd:vnfd-connection-point-ref: eth1
+            vnfd:guest-epa:
+                vnfd:cpu-pinning-policy: ANY
+            vnfd:id: ids_vdu
+            vnfd:image: ids_v1.0
+            vnfd:name: ids_vdu
+            vnfd:supplemental-boot-data:
+                vnfd:boot-data-drive: 'false'
+            vnfd:vm-flavor:
+                vnfd:memory-mb: '4096'
+                vnfd:storage-gb: '40'
+                vnfd:vcpu-count: '1'
+        vnfd:vendor: NCSRD
+        vnfd:version: '1.0'
+#        vnfd:vnf-configuration:
+#            vnfd:config-attributes:
+#                vnfd:config-delay: '1'
+#            vnfd:initial-config-primitive:
+#            -   vnfd:name: config
+#                vnfd:parameter:
+#                -   vnfd:name: ssh-hostname
+#                    vnfd:value: <rw_mgmt_ip>
+#                -   vnfd:name: ssh-username
+#                    vnfd:value: root
+#                -   vnfd:name: ssh-password
+#                    vnfd:value: pass1234
+#                -   vnfd:name: rest-port
+#                    vnfd:value: '8083'
+#                vnfd:seq: '1'
+#            vnfd:juju:
+#                vnfd:charm: ids
+#            vnfd:service-primitive:
+#            -   vnfd:name: start
+#            -   vnfd:name: stop
+#            -   vnfd:name: restart
+#            -   vnfd:name: config
+#                vnfd:parameter:
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: <rw_mgmt_ip>
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-hostname
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: root
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-username
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: pass1234
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-password
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: '8083'
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rest-port
+#            -   vnfd:name: set-rule
+#                vnfd:parameter:
+#                -   vnfd:data-type: STRING
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rule
+#            -   vnfd:name: get-rules
+#            -   vnfd:name: delete-rule
+#                vnfd:parameter:
+#                -   vnfd:data-type: INTEGER
+#                    vnfd:default-value: '1000001'
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rule
