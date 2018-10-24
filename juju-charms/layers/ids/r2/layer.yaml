@@ -1,0 +1,14 @@
+"options":
+  "sshproxy": {}
+  "vnfproxy": {}
+  "ids": {}
+  "basic":
+    "use_venv": !!bool "true"
+    "packages": []
+    "include_system_packages": !!bool "true"
+"includes":
+- "layer:basic"
+- "layer:sshproxy"
+- "layer:vnfproxy"
+"repo": "https://osm.etsi.org/gerrit/osm/juju-charms"
+"is": "ids"
