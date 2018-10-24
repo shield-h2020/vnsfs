@@ -38,54 +38,54 @@ vnfd:vnfd-catalog:
                 vnfd:vcpu-count: '1'
         vnfd:vendor: NCSRD
         vnfd:version: '1.0'
-        vnfd:vnf-configuration:
-            vnfd:config-attributes:
-                vnfd:config-delay: '1'
-            vnfd:initial-config-primitive:
-            -   vnfd:name: config
-                vnfd:parameter:
-                -   vnfd:name: ssh-hostname
-                    vnfd:value: <rw_mgmt_ip>
-                -   vnfd:name: ssh-username
-                    vnfd:value: root
-                -   vnfd:name: ssh-password
-                    vnfd:value: pass1234
-                -   vnfd:name: rest-port
-                    vnfd:value: '8083'
-                vnfd:seq: '1'
-            vnfd:juju:
-                vnfd:charm: ids
-            vnfd:service-primitive:
-            -   vnfd:name: start
-            -   vnfd:name: stop
-            -   vnfd:name: restart
-            -   vnfd:name: config
-                vnfd:parameter:
-                -   vnfd:data-type: STRING
-                    vnfd:default-value: <rw_mgmt_ip>
-                    vnfd:mandatory: 'false'
-                    vnfd:name: ssh-hostname
-                -   vnfd:data-type: STRING
-                    vnfd:default-value: root
-                    vnfd:mandatory: 'false'
-                    vnfd:name: ssh-username
-                -   vnfd:data-type: STRING
-                    vnfd:default-value: pass1234
-                    vnfd:mandatory: 'false'
-                    vnfd:name: ssh-password
-                -   vnfd:data-type: STRING
-                    vnfd:default-value: '8083'
-                    vnfd:mandatory: 'false'
-                    vnfd:name: rest-port
-            -   vnfd:name: set-rule
-                vnfd:parameter:
-                -   vnfd:data-type: STRING
-                    vnfd:mandatory: 'false'
-                    vnfd:name: rule
-            -   vnfd:name: get-rules
-            -   vnfd:name: delete-rule
-                vnfd:parameter:
-                -   vnfd:data-type: INTEGER
-                    vnfd:default-value: '1000001'
-                    vnfd:mandatory: 'false'
-                    vnfd:name: rule
+#        vnfd:vnf-configuration:
+#            vnfd:config-attributes:
+#                vnfd:config-delay: '1'
+#            vnfd:initial-config-primitive:
+#            -   vnfd:name: config
+#                vnfd:parameter:
+#                -   vnfd:name: ssh-hostname
+#                    vnfd:value: <rw_mgmt_ip>
+#                -   vnfd:name: ssh-username
+#                    vnfd:value: root
+#                -   vnfd:name: ssh-password
+#                    vnfd:value: pass1234
+#                -   vnfd:name: rest-port
+#                    vnfd:value: '8083'
+#                vnfd:seq: '1'
+#            vnfd:juju:
+#                vnfd:charm: ids
+#            vnfd:service-primitive:
+#            -   vnfd:name: start
+#            -   vnfd:name: stop
+#            -   vnfd:name: restart
+#            -   vnfd:name: config
+#                vnfd:parameter:
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: <rw_mgmt_ip>
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-hostname
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: root
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-username
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: pass1234
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: ssh-password
+#                -   vnfd:data-type: STRING
+#                    vnfd:default-value: '8083'
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rest-port
+#            -   vnfd:name: set-rule
+#                vnfd:parameter:
+#                -   vnfd:data-type: STRING
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rule
+#            -   vnfd:name: get-rules
+#            -   vnfd:name: delete-rule
+#                vnfd:parameter:
+#                -   vnfd:data-type: INTEGER
+#                    vnfd:default-value: '1000001'
+#                    vnfd:mandatory: 'false'
+#                    vnfd:name: rule
