@@ -1,13 +1,13 @@
 manifest:vnsf:
     schema_version: '1.2'
     type: <package data model format (OSM-R2, OSM-R4, ...)>
-    package: dockerreact_vnf.tar.gz
+    package: l3attest_vnf.tar.gz
     hash: <sha256-based hash of the .tar.gz package defined above>
     hashing_algorithm: SHA_256
-    descriptor: dockerreact_vnf/dockerreact_vnfd.yaml
+    descriptor: l3attest_vnf/l3attest_vnfd.yaml
     properties:
         vendor: POLITO
-        capabilities: ["react"]
+        capabilities: ["l3attest"]
     security_info:
-        attestation_filename: dockerreact_vnf_attestation.json
+        attestation_filename: l3attest_vnf_attestation.json
         hash: <sha256-based hash of the .json attestation file defined above>

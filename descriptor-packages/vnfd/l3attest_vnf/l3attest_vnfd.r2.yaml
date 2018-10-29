@@ -1,11 +1,11 @@
 vnfd-catalog:
     vnfd:
-    -   description: Dummy Docker-based reacting vNSF
-        id: dockerreact_vnfd
+    -   description: Dummy Docker-based filtering vNSF
+        id: l3attest_vnfd
         logo: docker-logo.png
         mgmt-interface:
-            vdu-id: dockerreact_vdu
-        name: dockerreact_vnfd
+            vdu-id: l3attest_vdu
+        name: l3attest_vnfd
         connection-point:
         -   name: eth0
             type: VPORT
@@ -15,14 +15,14 @@ vnfd-catalog:
             type: VPORT
 
         service-function-chain: UNAWARE
-        short-name: dockerreact
+        short-name: l3attest
         vdu:
         -   count: '1'
-            description: dockerreact-VM
+            description: l3attest-VM
             guest-epa:
                 cpu-pinning-policy: ANY
-            id: dockerreact_vdu
-            image: centos
+            id: l3attest_vdu
+            image: "vnf:v2"
             external-interface:
             -   vnfd-connection-point-ref: eth0
                 name: eth0
@@ -36,7 +36,7 @@ vnfd-catalog:
                 name: eth2
                 virtual-interface:
                     type: VIRTIO
-            name: dockerreact_vdu
+            name: l3attest_vdu
             vm-flavor:
                 memory-mb: '512'
                 storage-gb: '5'
