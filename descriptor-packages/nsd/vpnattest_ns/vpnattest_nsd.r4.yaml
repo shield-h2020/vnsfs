@@ -1,0 +1,39 @@
+nsd-catalog:
+    nsd:
+    -   constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: vpnattest_vnfd
+        description: Network Service descriptor of a Docker-based monitoring vNSF
+        id: vpnattest_nsd
+        logo: docker-logo.png
+        name: vpnattest_nsd
+        short-name: vpnattest_nsd
+        vendor: POLITO
+        version: '1.0'
+        vld:
+        -   id: vpnattest_nsd_vld1
+            mgmt-network: 'true'
+            name: vpnattest_nsd_vld1
+            short-name: vpnattest_nsd_vld1
+            type: ELAN
+            vim-network-name: default
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth0
+                vnfd-id-ref: vpnattest_vnfd
+        -   id: vpnattest_nsd_vld2
+            name: vpnattest_nsd_vld2
+            short-name: vpnattest_nsd_vld2
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth1
+                vnfd-id-ref: vpnattest_vnfd
+        -   id: vpnattest_nsd_vld3
+            name: vpnattest_nsd_vld3
+            short-name: vpnattest_nsd_vld3
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: 1
+                vnfd-connection-point-ref: eth2
+                vnfd-id-ref: vpnattest_vnfd

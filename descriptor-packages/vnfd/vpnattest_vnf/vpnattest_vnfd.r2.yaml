@@ -1,0 +1,45 @@
+vnfd-catalog:
+    vnfd:
+    -   description: Dummy Docker-based monitoring vNSF
+        id: vpnattest_vnfd
+        logo: docker-logo.png
+        mgmt-interface:
+            vdu-id: vpnattest_vdu
+        name: vpnattest_vnfd
+        connection-point:
+        -   name: eth0
+            type: VPORT
+        -   name: eth1
+            type: VPORT
+        -   name: eth2
+            type: VPORT
+
+        service-function-chain: UNAWARE
+        short-name: vpnattest
+        vdu:
+        -   count: '1'
+            description: vpnattest-VM
+            guest-epa:
+                cpu-pinning-policy: ANY
+            id: vpnattest_vdu
+            image: "vnf:v1"
+            external-interface:
+            -   vnfd-connection-point-ref: eth0
+                name: eth0
+                virtual-interface:
+                    type: OM-MGMT
+            -   vnfd-connection-point-ref: eth1
+                name: eth1
+                virtual-interface:
+                    type: VIRTIO
+            -   vnfd-connection-point-ref: eth2
+                name: eth2
+                virtual-interface:
+                    type: VIRTIO
+            name: vpnattest_vdu
+            vm-flavor:
+                memory-mb: '512'
+                storage-gb: '5'
+                vcpu-count: '1'
+        vendor: POLITO
+        version: '1.0'
