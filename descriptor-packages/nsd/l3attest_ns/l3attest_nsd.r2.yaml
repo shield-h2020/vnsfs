@@ -1,0 +1,39 @@
+nsd:nsd-catalog:
+    nsd:
+    -   id: l3attest_nsd
+        name: l3attest_nsd
+        short-name: l3attest_nsd
+        description: Network Service descriptor of a Docker-based filtering vNSF
+        vendor: POLITO
+        version: '1.0'
+        logo: docker-logo.png
+        constituent-vnfd:
+        -   member-vnf-index: 1
+            vnfd-id-ref: l3attest_vnfd
+        vld:
+            -   id: l3attest_nsd_vld1
+                name: l3attest_nsd_vld1
+                short-name: l3attest_nsd_vld1
+                mgmt-network: 'true'
+                type: ELAN
+                vim-network-name: 'default'
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: l3attest_vnfd
+                    nsd:vnfd-connection-point-ref: eth0
+            -   id: l3attest_nsd_vld2
+                name: l3attest_nsd_vld2
+                short-name: l3attest_nsd_vld2
+                type: ELAN
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: l3attest_vnfd
+                    nsd:vnfd-connection-point-ref: eth1
+            -   id: l3attest_nsd_vld3
+                name: l3attest_nsd_vld3
+                short-name: l3attest_nsd_vld3
+                type: ELAN
+                vnfd-connection-point-ref:
+                -   nsd:member-vnf-index-ref: 1
+                    nsd:vnfd-id-ref: l3attest_vnfd
+                    nsd:vnfd-connection-point-ref: eth2

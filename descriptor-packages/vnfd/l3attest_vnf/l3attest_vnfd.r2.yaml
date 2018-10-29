@@ -1,0 +1,45 @@
+vnfd-catalog:
+    vnfd:
+    -   description: Dummy Docker-based filtering vNSF
+        id: l3attest_vnfd
+        logo: docker-logo.png
+        mgmt-interface:
+            vdu-id: l3attest_vdu
+        name: l3attest_vnfd
+        connection-point:
+        -   name: eth0
+            type: VPORT
+        -   name: eth1
+            type: VPORT
+        -   name: eth2
+            type: VPORT
+
+        service-function-chain: UNAWARE
+        short-name: l3attest
+        vdu:
+        -   count: '1'
+            description: l3attest-VM
+            guest-epa:
+                cpu-pinning-policy: ANY
+            id: l3attest_vdu
+            image: "vnf:v2"
+            external-interface:
+            -   vnfd-connection-point-ref: eth0
+                name: eth0
+                virtual-interface:
+                    type: OM-MGMT
+            -   vnfd-connection-point-ref: eth1
+                name: eth1
+                virtual-interface:
+                    type: VIRTIO
+            -   vnfd-connection-point-ref: eth2
+                name: eth2
+                virtual-interface:
+                    type: VIRTIO
+            name: l3attest_vdu
+            vm-flavor:
+                memory-mb: '512'
+                storage-gb: '5'
+                vcpu-count: '1'
+        vendor: POLITO
+        version: '1.0'
