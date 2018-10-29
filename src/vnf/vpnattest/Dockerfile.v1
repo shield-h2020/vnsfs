@@ -1,0 +1,7 @@
+FROM centos:latest
+
+COPY docker/run_v1.sh /run.sh
+
+RUN chmod +x /run.sh
+
+ENTRYPOINT /run.sh && /bin/bash
