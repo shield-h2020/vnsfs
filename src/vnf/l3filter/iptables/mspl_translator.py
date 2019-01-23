@@ -1,6 +1,7 @@
 import xmltodict
 import iptc
 from common import settings
+from collections import OrderedDict
 
 
 def xml_to_iptables(data):
@@ -18,12 +19,14 @@ def xml_to_iptables(data):
         xml_datas.append(xml_rules)
 
     rate_limit = None
-    rules = []
+    rules = dict()
+    #rules = []
 
     for xml_data in xml_datas:
-        print xml_data
+        #print xml_data
         rule = iptc.Rule()
         match = None
+        m = None
 
         xml_src = getValIfKeyExists(
             xml_data["condition"]["packet-filter-condition"], "source-address")
@@ -37,6 +40,10 @@ def xml_to_iptables(data):
         xml_proto = getValIfKeyExists(
             xml_data["condition"]["packet-filter-condition"],
             "protocol")
+
+        if xml_proto is not None and xml_proto == '*':
+            xml_proto = None
+
         if xml_proto is not None:
             rule.protocol = xml_proto
 
@@ -90,14 +97,13 @@ def xml_to_iptables(data):
 
         # In case of specified ports:
         if xml_sport is not None or xml_dport is not None:
-            if match is None:
-                match = iptc.Match(rule, xml_proto.lower())
+            if m is None:
+                m = iptc.Match(rule, xml_proto.lower())
             if xml_sport is not None:
-                match.sport = xml_sport
+                m.sport = xml_sport
             if xml_dport is not None:
-                match.dport = xml_dport
-
-        # TODO: Manage priority
+                m.dport = xml_dport
+        # Priority is based on the data supplied by the mspl (e.g. 1,2,3,4,...)
         priority = getValIfKeyExists(xml_data, "priority")
 
         # Set target
@@ -109,11 +115,21 @@ def xml_to_iptables(data):
         # Set match
         if match is not None:
             rule.add_match(match)
+        if m is not None:
+            rule.add_match(m)
 
         # Append rule
-        rules.append(rule)
+        # rules.append(rule)
+        rules.update({rule: int(priority)})
+        #print rules
 
-    return rules
+    # Sorting the dictionary containing the iptables rules
+    rules = OrderedDict(sorted(rules.items(), key=lambda x: x[1]))
+    print rules
+    # Getting the list of the ordered rules, which are ready to be injected in the kernel module
+    list_rules = list(reversed(rules.keys()))
+
+    return list_rules
 
 
 def getValIfKeyExists(dict_var, key_var):
