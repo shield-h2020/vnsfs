@@ -1,0 +1,13 @@
+manifest:vnsf:
+    schema_version: '1.2'
+    type: <package data model format (OSM-R2, OSM-R4, ...)>
+    package: slowlorisl3filter_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    hashing_algorithm: SHA_256
+    descriptor: slowlorisl3filter_vnf/slowlorisl3filter_vnfd.yaml
+    properties:
+        vendor: POLITO
+        capabilities: ["slowloris", "L3", "Filter"]
+    security_info:
+        attestation_filename: slowlorisl3filter_vnf_attestation.json
+        hash: <sha256-based hash of the .json attestation file defined above>

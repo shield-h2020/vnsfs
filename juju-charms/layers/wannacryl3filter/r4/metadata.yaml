@@ -1,0 +1,13 @@
+name: wannacryl3filter
+summary: Configuration methods for L3Filter vNSF
+maintainer: SHIELD <local@shield>
+description: |
+  Configuration methods for L3Filter vNSF
+tags:
+  # Replace "misc" with one or more whitelisted tags from this list:
+  # https://jujucharms.com/docs/stable/authors-charm-metadata
+  - misc
+subordinate: false
+series:
+    - trusty
+    - xenial
