@@ -1,0 +1,10 @@
+manifest:ns:
+    schema_version: '1.2'
+    type: <package data model format (OSM-R2, OSM-R4, ...)>
+    package: l3filterwannacry_ns.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    hashing_algorithm: SHA_256
+    descriptor: l3filterwannacry_ns/l3filterwannacry_nsd.yaml
+    target: <instantiation target (KVM, docker, ...)>
+    properties:
+        capabilities: ["WannaCry", "L3", "Filter"]
