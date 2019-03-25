@@ -1,0 +1,13 @@
+manifest:vnsf:
+    schema_version: '1.2'
+    type: <package data model format (OSM-R2, OSM-R4, ...)>
+    package: l3filterwannacry_vnf.tar.gz
+    hash: <sha256-based hash of the .tar.gz package defined above>
+    hashing_algorithm: SHA_256
+    descriptor: l3filterwannacry_vnf/l3filterwannacry_vnfd.yaml
+    properties:
+        vendor: POLITO
+        capabilities: ["WannaCry", "L3", "Filter"]
+    security_info:
+        attestation_filename: l3filterwannacry_vnf_attestation.json
+        hash: <sha256-based hash of the .json attestation file defined above>
