@@ -122,16 +122,29 @@ ${pkg_name}/
 ...
 ```
 
-6. Run the generation script, using the package name and the OSM release (numeric) as arguments:
+6. Run the generation script
+
+  To generate a specific package for a given service, provide the package name and the OSM release (numeric) as arguments:
 
   ```
 sudo ./generate_osm_package.sh ${pkg_name} ${pkg_type} ${release_number} [${destination_path}]
 # Example:
-# sudo ./generate_osm_package.sh proxytls vnf 4 ~/Downloads/nfvo-packages/r4/
-# sudo ./generate_osm_package.sh httpsanalyzer ns 4 ~/Downloads/nfvo-packages/r4/
+# sudo ./generate_osm_package.sh proxytls vnf 5 ~/Downloads/nfvo-packages/r5/
+# sudo ./generate_osm_package.sh httpsanalyzer ns 5 ~/Downloads/nfvo-packages/r5/
+```
+
+  To generate packages for all services, provide just the desired OSM release (numeric) as argument:
+
+  ```
+sudo ./generate_osm_package_all.sh ${release_number} [${destination_path}]
+# Example:
+# sudo ./generate_osm_package_all.sh vnf 5 ~/Downloads/nfvo-packages/r5/
+# sudo ./generate_osm_package_all.sh 5 ~/Downloads/nfvo-packages/r5/
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
+
+  Note: the expected version for charm is (on snap): "charmstore-client 2.3.0+snap-320+git-47-g44bc628 charm-tools 2.5.2"
 
 ## Documenting the package
 

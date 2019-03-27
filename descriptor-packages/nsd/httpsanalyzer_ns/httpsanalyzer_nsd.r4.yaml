@@ -27,6 +27,6 @@ nsd:nsd-catalog:
             type: ELAN
             mgmt-network: 'false'
             vnfd-connection-point-ref:
-            -   vnfd-id-ref: httpsanalyzer
+            -   vnfd-id-ref: httpsanalyzer_vnfd
                 member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: ens4

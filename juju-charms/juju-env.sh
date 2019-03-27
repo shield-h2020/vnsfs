@@ -5,6 +5,8 @@ release=$1
 
 juju_charm=$(charm version | head -n 1 | cut -d" " -f2)
 
+echo "Running charm on version ${juju_charm}"
+
 # Snap requires confinement on execution into own's home
 if [[ $release -ge 4 && ${juju_charm} == *"2.3."* ]]; then
   export JUJU_REPOSITORY=$(echo $HOME)/vnsfs

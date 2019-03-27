@@ -8,7 +8,8 @@ r_no="$3"
 d_path="$4"
 
 min_r=2
-max_r=4
+max_r=5
+user=$SUDO_USER
 repo_root=$PWD
 pkg_tmp=$(mktemp -d)
 v_id_vnfd="${pkg_tmp}/descriptor-packages/vnfd/${v_id}_vnf"
@@ -64,6 +65,7 @@ if [[ ${v_type} == "vnf" ]]; then
   [[ -f ${pkg_tmp}/${v_id}_vnfd.r${r_no}.yaml ]] && cp -p ${pkg_tmp}/${v_id}_vnfd.r${r_no}.yaml ${v_id}_vnf/${v_id}_vnfd.yaml
   $PWD/../../tools/r${r_no}/generate_descriptor_pkg.sh -t vnfd ${v_id}_vnf
   sudo mv ${v_id}_vnf.tar.gz $pkg_dst/
+  sudo chown ${user}:${user} -R $pkg_dst/
 fi
 
 if [[ ${v_type} == "ns" ]]; then
@@ -73,6 +75,7 @@ if [[ ${v_type} == "ns" ]]; then
   [[ -f ${pkg_tmp}/${v_id}_nsd.r${r_no}.yaml ]] && cp -p ${pkg_tmp}/${v_id}_nsd.r${r_no}.yaml ${v_id}_ns/${v_id}_nsd.yaml
   $PWD/../../tools/r${r_no}/generate_descriptor_pkg.sh -t nsd ${v_id}_ns
   sudo mv ${v_id}_ns.tar.gz $pkg_dst/
+  sudo chown ${user}:${user} -R $pkg_dst/
 fi
 
 rm -rf ${pkg_tmp}/{*.yaml,descriptor-packages,juju-charms,tools}
