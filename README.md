@@ -130,7 +130,7 @@ ${pkg_name}/
 sudo ./generate_osm_package.sh ${pkg_name} ${pkg_type} ${release_number} [${destination_path}]
 # Example:
 # sudo ./generate_osm_package.sh proxytls vnf 5 ~/Downloads/nfvo-packages/r5/
-# sudo ./generate_osm_package.sh httpsanalyzer ns 5 ~/Downloads/nfvo-packages/r5/
+# sudo ./generate_osm_package.sh httpsanalyzer ns 5
 ```
 
   To generate packages for all services, provide just the desired OSM release (numeric) as argument:
@@ -138,8 +138,8 @@ sudo ./generate_osm_package.sh ${pkg_name} ${pkg_type} ${release_number} [${dest
   ```
 sudo ./generate_osm_package_all.sh ${release_number} [${destination_path}]
 # Example:
-# sudo ./generate_osm_package_all.sh vnf 5 ~/Downloads/nfvo-packages/r5/
 # sudo ./generate_osm_package_all.sh 5 ~/Downloads/nfvo-packages/r5/
+# sudo ./generate_osm_package_all.sh 5
 ```
 
   The script will download the needed packages, build the Juju charms and invoke the OSM built-in scripts to generate the OSM package.
