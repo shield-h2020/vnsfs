@@ -46,7 +46,7 @@ def config_changed():
         (validated, output) = charms.sshproxy.verify_ssh_credentials()
         if not validated:
             status_set(
-                'blocked',
+                'maintenance',
                 'Unable to verify SSH credentials: {}'.
                 format(output))
             return
