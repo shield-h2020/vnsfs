@@ -43,13 +43,16 @@ def config_changed():
     try:
         status_set('maintenance', 'Verifying configuration data...')
 
-        (validated, output) = charms.sshproxy.verify_ssh_credentials()
-        if not validated:
-            status_set(
-                'maintenance',
-                'Unable to verify SSH credentials: {}'.
-                format(output))
-            return
+        not_configured = 1
+        while not_configured:
+            (validated, output) = charms.sshproxy.verify_ssh_credentials()
+            if not validated:
+                status_set(
+                    'checking',
+                    'Unable to verify SSH credentials: {}'.
+                    format(output))
+            else:
+                not_configured = 0
 
         set_flag("l3filter.configured")
         status_set("active", "ready!")
