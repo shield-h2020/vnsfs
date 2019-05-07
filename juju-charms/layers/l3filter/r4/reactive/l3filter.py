@@ -60,7 +60,7 @@ def config_changed():
         return
     except Exception as err:
         status_set(
-            'blocked',
+            'maintenance',
             'Waiting for valid configuration ({})'.
             format(err))
 
@@ -68,7 +68,7 @@ def config_changed():
 @when('config.changed')
 @when_not('sshproxy.configured')
 def invalid_credentials():
-    status_set('blocked', 'Waiting for SSH credentials.')
+    status_set('maintenance', 'Waiting for SSH credentials.')
     pass
 
 
