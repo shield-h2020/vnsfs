@@ -43,21 +43,24 @@ def config_changed():
     try:
         status_set('maintenance', 'Verifying configuration data...')
 
-        (validated, output) = charms.sshproxy.verify_ssh_credentials()
-        if not validated:
-            status_set(
-                'blocked',
-                'Unable to verify SSH credentials: {}'.
-                format(output))
-            return
+        not_configured = 1
+        while not_configured:
+            (validated, output) = charms.sshproxy.verify_ssh_credentials()
+            if not validated:
+                status_set(
+                    'checking',
+                    'Unable to verify SSH credentials: {}'.
+                    format(output))
+            else:
+                not_configured = 0
 
-        set_flag("l3filterwannacry.configured")
+        set_flag("l3filter.configured")
         status_set("active", "ready!")
 
         return
     except Exception as err:
         status_set(
-            'blocked',
+            'maintenance',
             'Waiting for valid configuration ({})'.
             format(err))
 
@@ -65,7 +68,7 @@ def config_changed():
 @when('config.changed')
 @when_not('sshproxy.configured')
 def invalid_credentials():
-    status_set('blocked', 'Waiting for SSH credentials.')
+    status_set('maintenance', 'Waiting for SSH credentials.')
     pass
 
 
